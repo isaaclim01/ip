@@ -8,7 +8,10 @@ public class CommandMapper {
         this.commandMap.put("list", new ListCommand());
         this.commandMap.put("mark", new MarkCommand());
         this.commandMap.put("unmark", new UnmarkCommand());
-        this.commandMap.put("add", new AddTaskCommand());
+        this.commandMap.put("repeat", new RepeatCommand());
+        this.commandMap.put("todo", new AddToDoCommand());
+        this.commandMap.put("deadline", new AddDeadlineCommand());
+        this.commandMap.put("event", new AddEventCommand());
     }
 
     public Command getCommand(String input) {
@@ -18,8 +21,14 @@ public class CommandMapper {
             return commandMap.get("mark");
         } else if (input.startsWith("unmark ")) {
             return commandMap.get("unmark");
+        } else if (input.startsWith("todo ")) {
+            return commandMap.get("todo");
+        } else if (input.startsWith("deadline ")) {
+            return commandMap.get("deadline");
+        } else if (input.startsWith("event ")) {
+            return commandMap.get("event");
         } else {
-            return commandMap.get("add");
+            return commandMap.get("repeat");
         }
     }
 }

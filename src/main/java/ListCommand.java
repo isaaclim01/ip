@@ -5,9 +5,8 @@ public class ListCommand implements Command {
 
         for (int i = 0; i < Squiddy.counter; i++) {
             Task curr = Squiddy.list[i];
-            System.out.printf("%d.[%s] %s \n", i + 1,
-                    curr.getStatusIcon(),
-                    curr.getDescription());
+            String taskString = String.format("%d. %s \n", i + 1, curr.toString()).indent(8);
+            System.out.printf(taskString);
         }
     }
 }

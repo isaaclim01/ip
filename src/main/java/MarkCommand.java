@@ -8,9 +8,7 @@ public class MarkCommand implements Command {
             curr.markDone();
 
             System.out.println("OK, you've completed this: ");
-            System.out.printf("%d.[%s] %s \n", number,
-                    curr.getStatusIcon(),
-                    curr.getDescription());
+            System.out.println(curr.toString().indent(8));
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             System.out.println("Don't start your task with the word 'mark'. Please.");
