@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Squiddy {
+
+    public static String[] list = new String[100];
+    public static int counter = 0;
+
     public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
 
@@ -12,10 +16,27 @@ public class Squiddy {
         System.out.println("—".repeat(50));
 
         while (!input.equals("bye")) {
-            System.out.println(input);
-            System.out.println("—".repeat(50));
-            input = myScanner.nextLine();
-            System.out.println("—".repeat(50));
+
+            if (input.equals("list")) {
+                for (int i = 0; i < counter; i++) {
+                    System.out.printf("%d. %s \n", i + 1, list[i]);
+                }
+
+                System.out.println("—".repeat(50));
+
+                input = myScanner.nextLine();
+                System.out.println("—".repeat(50));
+
+            } else {
+                list[counter] = input;
+                Squiddy.counter++;
+
+                System.out.println("added: " + input);
+                System.out.println("—".repeat(50));
+
+                input = myScanner.nextLine();
+                System.out.println("—".repeat(50));
+            }
         }
 
         System.out.println("Bye. Hope to see you again soon!");
