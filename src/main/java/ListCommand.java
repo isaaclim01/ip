@@ -2,6 +2,10 @@ public class ListCommand implements Command {
     @Override
     public void execute(String input) throws UnknownInputException {
 
+        if (!input.equals("list")) {
+            throw new UnknownInputException("Just enter 'list' by itself");
+        }
+
         if (Squiddy.list.isEmpty()) {
             throw new UnknownInputException("your list is empty");
         }
