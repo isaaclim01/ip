@@ -1,0 +1,10 @@
+test
+todo wash the dishes
+mark 1
+deadline go sleep /by 10pm
+event wake up /from 2pm /to 5am
+list
+mark 2
+unmark 1
+list
+bye

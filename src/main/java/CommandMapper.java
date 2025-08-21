@@ -12,6 +12,7 @@ public class CommandMapper {
         this.commandMap.put("todo", new AddToDoCommand());
         this.commandMap.put("deadline", new AddDeadlineCommand());
         this.commandMap.put("event", new AddEventCommand());
+        this.commandMap.put("test", new TestCommand());
     }
 
     public Command getCommand(String input) {
@@ -27,6 +28,8 @@ public class CommandMapper {
             return commandMap.get("deadline");
         } else if (input.startsWith("event ")) {
             return commandMap.get("event");
+        } else if (input.equals("test")) {
+            return commandMap.get("test");
         } else {
             return commandMap.get("repeat");
         }

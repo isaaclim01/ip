@@ -8,7 +8,7 @@ public class AddDeadlineCommand implements Command {
         Deadline addTask = new Deadline(splitInput[0].trim(), splitInput[1].trim());
         Squiddy.list[Squiddy.counter] = addTask;
         Squiddy.counter++;
-        System.out.println("Let me write this down: \n" +
+        System.out.print("Let me write this down: \n" +
                 addTask.toString().indent(8));
         System.out.println(String.format("You have %d tasks recorded", Squiddy.counter + 1));
     }
