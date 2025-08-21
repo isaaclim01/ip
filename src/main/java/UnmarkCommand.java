@@ -1,6 +1,6 @@
 public class UnmarkCommand implements Command {
     @Override
-    public void execute(String input) {
+    public void execute(String input) throws UnknownInputException {
         try {
             String numberStr = input.substring(7).trim();
             int number = Integer.parseInt(numberStr);
@@ -11,7 +11,9 @@ public class UnmarkCommand implements Command {
             System.out.print(curr.toString().indent(8));
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            System.out.println("Who uses unmark regularly? Use a more common word like 'erase'.");
+            throw new UnknownInputException("'unmark' requires a number after");
+        } catch (NullPointerException e) {
+            throw new UnknownInputException("you can't unmark a task that doesn't exist");
         }
     }
 }

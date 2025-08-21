@@ -18,15 +18,15 @@ public class CommandMapper {
     public Command getCommand(String input) {
         if (input.equals("list")) {
             return commandMap.get("list");
-        } else if (input.startsWith("mark ")) {
+        } else if (input.startsWith("mark ") || input.equals("mark")) {
             return commandMap.get("mark");
-        } else if (input.startsWith("unmark ")) {
+        } else if (input.startsWith("unmark ") || input.equals("unmark")) {
             return commandMap.get("unmark");
-        } else if (input.startsWith("todo ")) {
+        } else if (input.startsWith("todo ") || input.equals("todo")) {
             return commandMap.get("todo");
-        } else if (input.startsWith("deadline ")) {
+        } else if (input.startsWith("deadline ") || input.equals("deadline")) {
             return commandMap.get("deadline");
-        } else if (input.startsWith("event ")) {
+        } else if (input.startsWith("event ") || input.equals("event")) {
             return commandMap.get("event");
         } else if (input.equals("test")) {
             return commandMap.get("test");

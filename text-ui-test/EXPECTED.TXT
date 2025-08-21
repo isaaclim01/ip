@@ -1,5 +1,7 @@
+--------------------------------------------------
 I'm Squiddy, forced to be text in your terminal.
 Type a task and I'll decide if I want to help you remember it
+--------------------------------------------------
 --------------------------------------------------
 Switched to test mode and removed the horizontal lines
 Let me write this down:

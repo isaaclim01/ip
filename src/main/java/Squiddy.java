@@ -17,20 +17,28 @@ public class Squiddy {
 
         Scanner myScanner = new Scanner(System.in);
 
+        System.out.println("-".repeat(50));
         System.out.println("I'm Squiddy, forced to be text in your terminal. " +
                 "\nType a task and I'll decide if I want to help you remember it");
+        System.out.println("-".repeat(50));
 
         String input = myScanner.nextLine().trim();
         System.out.println("-".repeat(50));
 
         while (!input.equalsIgnoreCase("bye")) {
+            try {
+                Command command = mapper.getCommand(input.toLowerCase());
+                command.execute(input);
 
-            Command command = mapper.getCommand(input.toLowerCase());
-            command.execute(input);
-
-            printHorizontalLine();
-            input = myScanner.nextLine().trim().toLowerCase();
-            printHorizontalLine();
+                printHorizontalLine();
+                input = myScanner.nextLine().trim().toLowerCase();
+                printHorizontalLine();
+            } catch (UnknownInputException e) {
+                System.out.println("You can't do that: " + e.getMessage());
+                printHorizontalLine();
+                input = myScanner.nextLine().trim().toLowerCase();
+                printHorizontalLine();
+            }
         }
 
         System.out.println("Bye. Please don't bother me again.");

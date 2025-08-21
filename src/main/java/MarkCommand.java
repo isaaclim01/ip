@@ -1,6 +1,6 @@
 public class MarkCommand implements Command {
     @Override
-    public void execute(String input) {
+    public void execute(String input) throws UnknownInputException {
         try {
             String numberStr = input.substring(5).trim();
             int number = Integer.parseInt(numberStr);
@@ -11,7 +11,9 @@ public class MarkCommand implements Command {
             System.out.print(curr.toString().indent(8));
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            System.out.println("Don't start your task with the word 'mark'. Please.");
+            throw new UnknownInputException("'mark' requires a number after");
+        } catch (NullPointerException e) {
+            throw new UnknownInputException("you can't mark a task that doesn't exist");
         }
     }
 }
