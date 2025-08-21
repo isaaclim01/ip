@@ -5,10 +5,9 @@ public class AddToDoCommand implements Command {
             throw new UnknownInputException("Your ToDo has to have a description!");
         }
         ToDo addTask = new ToDo(input.substring(5).trim());
-        Squiddy.list[Squiddy.counter] = addTask;
-        Squiddy.counter++;
+        Squiddy.list.add(addTask);
         System.out.print("Let me write this down: \n" +
                 addTask.toString().indent(8));
-        System.out.println(String.format("You have %d tasks recorded", Squiddy.counter + 1));
+        System.out.println(String.format("You have %d tasks recorded", Squiddy.list.size()));
     }
 }

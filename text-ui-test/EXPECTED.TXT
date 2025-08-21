@@ -6,15 +6,15 @@ Type a task and I'll decide if I want to help you remember it
 Switched to test mode and removed the horizontal lines
 Let me write this down:
         [T][ ] wash the dishes
-You have 2 tasks recorded
+You have 1 tasks recorded
 OK, you've completed this:
         [T][X] wash the dishes
 Let me write this down:
         [D][ ] go sleep (by: 10pm)
-You have 3 tasks recorded
+You have 2 tasks recorded
 Let me write this down:
         [E][ ] wake up (from: 2pm to: 5am)
-You have 4 tasks recorded
+You have 3 tasks recorded
 Let's see what you've got:
         1. [T][X] wash the dishes
         2. [D][ ] go sleep (by: 10pm)

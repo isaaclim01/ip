@@ -1,9 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Squiddy {
 
-    public static Task[] list = new Task[100];
-    public static int counter = 0;
+    public static ArrayList<Task> list = new ArrayList<>();
     public static CommandMapper mapper = new CommandMapper();
     public static boolean TEST_MODE = false;
 

@@ -4,7 +4,7 @@ public class MarkCommand implements Command {
         try {
             String numberStr = input.substring(5).trim();
             int number = Integer.parseInt(numberStr);
-            Task curr = Squiddy.list[number - 1];
+            Task curr = Squiddy.list.get(number - 1);
             curr.markDone();
 
             System.out.println("OK, you've completed this: ");
