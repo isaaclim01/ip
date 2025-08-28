@@ -45,4 +45,34 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
+    public static void start() {
+        if (FileManager.checkFolder()) {
+            System.out.println("Folder loaded");
+        } else {
+            FileManager.createFolder();
+        }
+
+        if (FileManager.checkFile()) {
+            System.out.println("Data loaded");
+        } else {
+            FileManager.createFile();
+        }
+    }
+
+    public static void remakeFile() {
+        try {
+            File squidData = new File("data/", "squid.txt");
+            if (squidData.delete()) {
+                System.out.println("File deleted");
+                createFile();
+            } else {
+                System.out.println("Unable to delete file: "
+                        + squidData.getAbsolutePath());
+            }
+        } catch (SecurityException e) {
+            System.out.println("ERROR ERROR :");
+            e.printStackTrace();
+        }
+    }
 }

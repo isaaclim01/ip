@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,18 +19,7 @@ public class Squiddy {
 
         Scanner myScanner = new Scanner(System.in);
 
-        if (FileManager.checkFolder()) {
-            System.out.println("Folder loaded");
-        } else {
-            FileManager.createFolder();
-        }
-
-        if (FileManager.checkFile()) {
-            System.out.println("Data loaded");
-        } else {
-            FileManager.createFile();
-        }
-
+        FileManager.start();
 
         System.out.println("-".repeat(50));
         System.out.println("I'm Squiddy, forced to be text in your terminal. " +
@@ -51,6 +42,33 @@ public class Squiddy {
                 printHorizontalLine();
                 input = myScanner.nextLine().trim().toLowerCase();
                 printHorizontalLine();
+            } catch (FileNotFoundException e) {
+                System.out.println("Oh man: " + e.getMessage());
+                printHorizontalLine();
+                FileManager.start();
+                input = myScanner.nextLine().trim().toLowerCase();
+                printHorizontalLine();
+            } catch (FileCorruptedException e) {
+                System.out.println("Squiddy is corrupted: " + e.getMessage());
+                System.out.println("Remake file? (y/n)");
+                printHorizontalLine();
+                input = myScanner.nextLine().trim().toLowerCase();
+                printHorizontalLine();
+                while (!input.equals("y") && !input.equals("n")) {
+                    System.out.println("Remake file? (y/n)");
+                    printHorizontalLine();
+                    input = myScanner.nextLine().trim().toLowerCase();
+                    printHorizontalLine();
+                }
+                if (input.equals("y")) {
+                    FileManager.remakeFile();
+                } else if (input.equals("n")) {
+                    System.out.println("Please fix file manually");
+                }
+                printHorizontalLine();
+                input = myScanner.nextLine().trim().toLowerCase();
+                printHorizontalLine();
+
             }
         }
 
