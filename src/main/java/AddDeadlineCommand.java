@@ -1,6 +1,9 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class AddDeadlineCommand implements Command {
     @Override
-    public void execute(String input) throws UnknownInputException {
+    public void execute(String input) throws UnknownInputException, FileCorruptedException {
 
         if (input.length() == 8) {
             throw new UnknownInputException("Your Deadline has to have a description!");
@@ -23,10 +26,20 @@ public class AddDeadlineCommand implements Command {
         }
 
         Deadline addTask = new Deadline(splitInput[0].trim(), splitInput[1].trim());
-        Squiddy.list.add(addTask);
-        System.out.print("Let me write this down: \n" +
-                addTask.toString().indent(8));
-        System.out.println(String.format("You have %d tasks recorded", Squiddy.list.size()));
 
+        try {
+            FileWriter data = new FileWriter(Squiddy.DATA_PATHNAME, true);
+
+            String toWrite = String.format("\nD / 0 / %s / %s", addTask.getDescription(),
+                    addTask.getDueDate());
+
+            data.write(toWrite);
+            data.close();
+
+            System.out.print("Let me write this down: \n" +
+                    addTask.toString().indent(8));
+        } catch (IOException e) {
+            throw new FileCorruptedException(e.getMessage());
+        }
     }
 }

@@ -1,6 +1,10 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 public class AddEventCommand implements Command {
     @Override
-    public void execute(String input) throws UnknownInputException {
+    public void execute(String input) throws UnknownInputException, FileCorruptedException {
 
         if (input.length() == 5) {
             throw new UnknownInputException("Your Event has to have a description!");
@@ -32,9 +36,20 @@ public class AddEventCommand implements Command {
         }
 
         Event addTask = new Event(splitInput[0].trim(), splitInput[1].trim(), splitInput[2].trim());
-        Squiddy.list.add(addTask);
-        System.out.print("Let me write this down: \n" +
-                addTask.toString().indent(8));
-        System.out.println(String.format("You have %d tasks recorded", Squiddy.list.size()));
+
+        try {
+            FileWriter data = new FileWriter(Squiddy.DATA_PATHNAME, true);
+
+            String toWrite = String.format("\nE / 0 / %s / %s / %s", addTask.getDescription(),
+                    addTask.getStartDate(), addTask.getEndDate());
+
+            data.write(toWrite);
+            data.close();
+
+            System.out.print("Let me write this down: \n" +
+                    addTask.toString().indent(8));
+        } catch (IOException e) {
+            throw new FileCorruptedException(e.getMessage());
+        }
     }
 }

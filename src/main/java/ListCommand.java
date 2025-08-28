@@ -10,7 +10,7 @@ public class ListCommand implements Command {
             throw new UnknownInputException("Just enter 'list' by itself");
         }
 
-        File data = new File("data/squid.txt");
+        File data = new File(Squiddy.DATA_PATHNAME);
 
         Scanner s = new Scanner(data);
 
