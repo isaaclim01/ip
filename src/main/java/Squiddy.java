@@ -17,6 +17,19 @@ public class Squiddy {
 
         Scanner myScanner = new Scanner(System.in);
 
+        if (FileManager.checkFolder()) {
+            System.out.println("Folder loaded");
+        } else {
+            FileManager.createFolder();
+        }
+
+        if (FileManager.checkFile()) {
+            System.out.println("Data loaded");
+        } else {
+            FileManager.createFile();
+        }
+
+
         System.out.println("-".repeat(50));
         System.out.println("I'm Squiddy, forced to be text in your terminal. " +
                 "\nType a task and I'll decide if I want to help you remember it");
