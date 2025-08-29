@@ -1,3 +1,5 @@
+package ip.tasks;
+
 public class Event extends Task{
     protected String startDate;
     protected String endDate;
@@ -14,6 +16,17 @@ public class Event extends Task{
 
     public String getEndDate() {
         return this.endDate;
+    }
+
+    @Override
+    public String toDataString() {
+        int isDoneInt;
+        if (isDone) {
+            isDoneInt = 1;
+        } else {
+            isDoneInt = 0;
+        }
+        return String.format("E / %d / %s / %s / %s", isDoneInt, description, startDate, endDate);
     }
 
     @Override

@@ -1,3 +1,5 @@
+package ip.commands;
+
 public enum CommandType {
     LIST("list", new ListCommand()),
     MARK("mark", new MarkCommand()),

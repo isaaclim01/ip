@@ -1,16 +1,26 @@
+package ip.main;
+
+import ip.commands.Command;
+import ip.commands.CommandMapper;
+import ip.exceptions.FileCorruptedException;
+import ip.exceptions.UnknownInputException;
+import ip.tasks.Task;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Squiddy {
 
-    public static ArrayList<Task> list = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
     public static CommandMapper mapper = new CommandMapper();
-    public static boolean TEST_MODE = false;
-    public static String DATA_PATHNAME = "data/squid.txt";
+    public static boolean IS_TEST_MODE = false;
+    public static final String DATA_PATHNAME = "data/squid.txt";
+    public static final String FOLDER_PATHNAME = "data/";
+    public static final FileManager manager = new FileManager(FOLDER_PATHNAME, DATA_PATHNAME);
 
     public static void printHorizontalLine() {
-        if (!TEST_MODE) {
+        if (!IS_TEST_MODE) {
             System.out.println("—".repeat(50));
         }
     }
@@ -19,7 +29,13 @@ public class Squiddy {
 
         Scanner myScanner = new Scanner(System.in);
 
-        FileManager.start();
+        manager.start();
+
+        try {
+            manager.loadFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("Can't find data file, shutting down");
+        }
 
         System.out.println("-".repeat(50));
         System.out.println("I'm Squiddy, forced to be text in your terminal. " +
@@ -45,7 +61,7 @@ public class Squiddy {
             } catch (FileNotFoundException e) {
                 System.out.println("Oh man: " + e.getMessage());
                 printHorizontalLine();
-                FileManager.start();
+                manager.start();
                 input = myScanner.nextLine().trim().toLowerCase();
                 printHorizontalLine();
             } catch (FileCorruptedException e) {
@@ -61,7 +77,7 @@ public class Squiddy {
                     printHorizontalLine();
                 }
                 if (input.equals("y")) {
-                    FileManager.remakeFile();
+                    manager.remakeFile();
                 } else if (input.equals("n")) {
                     System.out.println("Please fix file manually");
                 }

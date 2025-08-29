@@ -1,3 +1,10 @@
+package ip.commands;
+
+import ip.exceptions.FileCorruptedException;
+import ip.exceptions.UnknownInputException;
+import ip.main.Squiddy;
+import ip.tasks.Event;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -7,32 +14,32 @@ public class AddEventCommand implements Command {
     public void execute(String input) throws UnknownInputException, FileCorruptedException {
 
         if (input.length() == 5) {
-            throw new UnknownInputException("Your Event has to have a description!");
+            throw new UnknownInputException("Your ip.tasks.Event has to have a description!");
         }
 
         if (!input.contains("/from") || !input.contains("/to")) {
-            throw new UnknownInputException("Your Event has to have a duration inputted with '/from' and '/to'");
+            throw new UnknownInputException("Your ip.tasks.Event has to have a duration inputted with '/from' and '/to'");
         }
 
         String[] splitInput = input.substring(6).split("/");
 
         if (splitInput[0].trim().isEmpty()) {
-            throw new UnknownInputException("Your Event has to have a description!");
+            throw new UnknownInputException("Your ip.tasks.Event has to have a description!");
         }
 
         if (splitInput[1].startsWith("from ")) {
             splitInput[1] = splitInput[1].substring(5);
             if (splitInput[1].isEmpty()) {
-                throw new UnknownInputException("Your Event has to have a start time inputted with '/from'");
+                throw new UnknownInputException("Your ip.tasks.Event has to have a start time inputted with '/from'");
             }
         } else {
-            throw new UnknownInputException("Your Event has to have a start time inputted with '/from'");
+            throw new UnknownInputException("Your ip.tasks.Event has to have a start time inputted with '/from'");
         }
 
         if (splitInput[2].startsWith("to ")) {
             splitInput[2] = splitInput[2].substring(3);
         } else {
-            throw new UnknownInputException("Your Event has to have a end time inputted with '/to'");
+            throw new UnknownInputException("Your ip.tasks.Event has to have a end time inputted with '/to'");
         }
 
         Event addTask = new Event(splitInput[0].trim(), splitInput[1].trim(), splitInput[2].trim());
@@ -40,11 +47,11 @@ public class AddEventCommand implements Command {
         try {
             FileWriter data = new FileWriter(Squiddy.DATA_PATHNAME, true);
 
-            String toWrite = String.format("\nE / 0 / %s / %s / %s", addTask.getDescription(),
-                    addTask.getStartDate(), addTask.getEndDate());
+            String dataString = addTask.toDataString() + "\n";
 
-            data.write(toWrite);
+            data.write(dataString);
             data.close();
+            Squiddy.tasks.add(addTask);
 
             System.out.print("Let me write this down: \n" +
                     addTask.toString().indent(8));

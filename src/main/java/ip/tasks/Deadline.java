@@ -1,3 +1,5 @@
+package ip.tasks;
+
 public class Deadline extends Task{
 
     protected String dueDate;
@@ -9,6 +11,17 @@ public class Deadline extends Task{
 
     public String getDueDate() {
         return dueDate;
+    }
+
+    @Override
+    public String toDataString() {
+        int isDoneInt;
+        if (isDone) {
+            isDoneInt = 1;
+        } else {
+            isDoneInt = 0;
+        }
+        return String.format("D / %d / %s / %s", isDoneInt, description, dueDate);
     }
 
     @Override

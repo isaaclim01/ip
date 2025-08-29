@@ -1,3 +1,5 @@
+package ip.commands;
+
 public class CommandMapper {
 
     public Command getCommand(String input) {

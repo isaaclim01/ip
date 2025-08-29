@@ -1,3 +1,10 @@
+package ip.commands;
+
+import ip.exceptions.FileCorruptedException;
+import ip.exceptions.UnknownInputException;
+import ip.main.Squiddy;
+import ip.tasks.Deadline;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -6,17 +13,17 @@ public class AddDeadlineCommand implements Command {
     public void execute(String input) throws UnknownInputException, FileCorruptedException {
 
         if (input.length() == 8) {
-            throw new UnknownInputException("Your Deadline has to have a description!");
+            throw new UnknownInputException("Your ip.tasks.Deadline has to have a description!");
         }
 
         if (!input.contains("/by")) {
-            throw new UnknownInputException("Your Deadline has to have a due date inputted with '/by'");
+            throw new UnknownInputException("Your ip.tasks.Deadline has to have a due date inputted with '/by'");
         }
 
         String[] splitInput = input.substring(9).split("/");
 
         if (splitInput[0].trim().isEmpty()) {
-            throw new UnknownInputException("Your Deadline has to have a description!");
+            throw new UnknownInputException("Your ip.tasks.Deadline has to have a description!");
         }
 
         try {
@@ -30,11 +37,11 @@ public class AddDeadlineCommand implements Command {
         try {
             FileWriter data = new FileWriter(Squiddy.DATA_PATHNAME, true);
 
-            String toWrite = String.format("\nD / 0 / %s / %s", addTask.getDescription(),
-                    addTask.getDueDate());
+            String dataString = addTask.toDataString() + "\n";
 
-            data.write(toWrite);
+            data.write(dataString);
             data.close();
+            Squiddy.tasks.add(addTask);
 
             System.out.print("Let me write this down: \n" +
                     addTask.toString().indent(8));

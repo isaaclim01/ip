@@ -1,3 +1,5 @@
+package ip.tasks;
+
 abstract public class Task {
     protected String description;
     protected boolean isDone;
@@ -21,6 +23,16 @@ abstract public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String toDataString() {
+        int isDoneInt;
+        if (isDone) {
+            isDoneInt = 1;
+        } else {
+            isDoneInt = 0;
+        }
+        return String.format("* / %d / %s", isDoneInt, description);
     }
 
     @Override

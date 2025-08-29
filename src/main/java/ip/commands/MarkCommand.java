@@ -1,14 +1,22 @@
+package ip.commands;
+
+import ip.exceptions.UnknownInputException;
+import ip.main.Squiddy;
+import ip.tasks.Task;
+
 public class MarkCommand implements Command {
     @Override
     public void execute(String input) throws UnknownInputException {
         try {
             String numberStr = input.substring(5).trim();
             int number = Integer.parseInt(numberStr);
-            Task curr = Squiddy.list.get(number - 1);
+            Task curr = Squiddy.tasks.get(number - 1);
             curr.markDone();
 
             System.out.println("OK, you've completed this: ");
             System.out.print(curr.toString().indent(8));
+
+            Squiddy.manager.rewrite();
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'mark' requires a number after");

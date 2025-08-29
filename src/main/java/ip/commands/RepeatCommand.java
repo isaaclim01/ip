@@ -1,3 +1,5 @@
+package ip.commands;
+
 public class RepeatCommand implements Command {
     @Override
     public void execute(String input) {
