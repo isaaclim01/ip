@@ -7,23 +7,26 @@ import ip.tasks.Deadline;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AddDeadlineCommand implements Command {
     @Override
     public void execute(String input) throws UnknownInputException, FileCorruptedException {
 
         if (input.length() == 8) {
-            throw new UnknownInputException("Your ip.tasks.Deadline has to have a description!");
+            throw new UnknownInputException("Your Deadline has to have a description!");
         }
 
         if (!input.contains("/by")) {
-            throw new UnknownInputException("Your ip.tasks.Deadline has to have a due date inputted with '/by'");
+            throw new UnknownInputException("Your Deadline has to have a due date inputted with '/by'");
         }
 
         String[] splitInput = input.substring(9).split("/");
 
         if (splitInput[0].trim().isEmpty()) {
-            throw new UnknownInputException("Your ip.tasks.Deadline has to have a description!");
+            throw new UnknownInputException("Your Deadline has to have a description!");
         }
 
         try {
@@ -32,7 +35,16 @@ public class AddDeadlineCommand implements Command {
             throw new UnknownInputException("Add the deadline after '/by'");
         }
 
-        Deadline addTask = new Deadline(splitInput[0].trim(), splitInput[1].trim());
+        String dueDate = splitInput[1].trim();
+        boolean isDate = DateValidator.isValid(dueDate);
+
+        if (isDate) {
+            LocalDate date = LocalDate.parse(dueDate);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yy");
+            dueDate = date.format(formatter);
+        }
+
+        Deadline addTask = new Deadline(splitInput[0].trim(), dueDate);
 
         try {
             FileWriter data = new FileWriter(Squiddy.DATA_PATHNAME, true);
