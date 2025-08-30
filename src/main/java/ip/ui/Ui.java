@@ -24,8 +24,8 @@ public class Ui {
 
     //Shows welcome message
     public void showWelcome() {
-        output.println("I'm Squiddy, forced to be text in your terminal. " +
-                "\nType a task and I'll decide if I want to help you remember it");
+        output.println("I'm Squiddy, forced to be text in your terminal. "
+                + "\nType a task and I'll decide if I want to help you remember it");
     }
 
     //Shows exit message
@@ -35,7 +35,7 @@ public class Ui {
 
     //Shows the divider line
     public void showDivider() {
-        if (!Squiddy.IS_TEST_MODE) {
+        if (!Squiddy.getIsTestMode()) {
             output.println(DIVIDER);
         }
     }
@@ -121,7 +121,7 @@ public class Ui {
 
     //Shows a message for test mode
     public void showTestMode() {
-        if (Squiddy.IS_TEST_MODE) {
+        if (Squiddy.getIsTestMode()) {
             output.println("Switched to test mode and removed the horizontal lines");
         } else {
             output.println("Turned off test mode");

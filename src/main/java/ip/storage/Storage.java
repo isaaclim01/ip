@@ -1,7 +1,11 @@
 package ip.storage;
 
 import ip.exceptions.FileCorruptedException;
-import ip.tasks.*;
+import ip.tasks.Deadline;
+import ip.tasks.Event;
+import ip.tasks.Task;
+import ip.tasks.TaskList;
+import ip.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -125,7 +129,7 @@ public class Storage {
     }
 
     //Appends into data file
-    public void write(Task task) throws FileCorruptedException{
+    public void write(Task task) throws FileCorruptedException {
         try {
             FileWriter writer = new FileWriter(data, true);
             String dataString = task.toDataString() + "\n";

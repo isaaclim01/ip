@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-public class TaskList implements Iterable<Task>{
+public class TaskList implements Iterable<Task> {
 
     private final ArrayList<Task> list;
 

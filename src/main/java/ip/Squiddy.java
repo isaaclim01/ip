@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 
 public class Squiddy {
 
-    public static boolean IS_TEST_MODE = false;
+    private static boolean isTestMode = false;
 
     private final Ui ui;
     private final Storage storage;
@@ -70,6 +70,14 @@ public class Squiddy {
                 ui.showDivider();
             }
         }
+    }
+
+    public static void setIsTestMode() {
+        isTestMode = !isTestMode;
+    }
+
+    public static boolean getIsTestMode() {
+        return isTestMode;
     }
 
     public static void main(String[] args) {

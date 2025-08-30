@@ -11,7 +11,7 @@ public class ErrorHandler {
     private final Storage storage;
     private final Ui ui;
 
-    public enum ERROR_CODE {
+    public enum ErrorCode {
         UNKNOWN,
         NOT_FOUND,
         CORRUPT,
@@ -26,13 +26,13 @@ public class ErrorHandler {
     //Handling of any exceptions
     public boolean handleError(Exception e) {
         String msg = e.getMessage();
-        ERROR_CODE code = ERROR_CODE.NONE;
+        ErrorCode code = ErrorCode.NONE;
         if (e instanceof UnknownInputException) {
-            code = ERROR_CODE.UNKNOWN;
+            code = ErrorCode.UNKNOWN;
         } else if (e instanceof FileCorruptedException) {
-            code = ERROR_CODE.CORRUPT;
+            code = ErrorCode.CORRUPT;
         } else if (e instanceof FileNotFoundException) {
-            code = ERROR_CODE.NOT_FOUND;
+            code = ErrorCode.NOT_FOUND;
         }
 
         switch (code) {
@@ -64,8 +64,9 @@ public class ErrorHandler {
         case NONE:
             ui.showOtherError(e.getMessage());
             return false;
-        }
 
-        return false;
+        default:
+            return false;
+        }
     }
 }

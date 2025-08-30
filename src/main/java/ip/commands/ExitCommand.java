@@ -5,7 +5,7 @@ import ip.storage.Storage;
 import ip.tasks.TaskList;
 import ip.ui.Ui;
 
-public class ExitCommand implements Command{
+public class ExitCommand implements Command {
 
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws UnknownInputException {

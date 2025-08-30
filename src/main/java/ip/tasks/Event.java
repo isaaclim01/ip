@@ -1,6 +1,6 @@
 package ip.tasks;
 
-public class Event extends Task{
+public class Event extends Task {
     protected String startDate;
     protected String endDate;
 
