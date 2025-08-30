@@ -14,14 +14,27 @@ import java.util.Scanner;
 
 import static ip.main.Squiddy.tasks;
 
-public class FileManager {
+public class Storage {
 
     private final File folder;
     private final File data;
 
-    public FileManager(String folderPath, String dataPath) {
+    public Storage(String folderPath, String dataPath) {
         this.folder = new File(folderPath);
         this.data = new File(dataPath);
+    }
+
+    public Storage(String dataPath) {
+        this.data = new File(dataPath);
+        this.folder = new File(dataPath.split("/")[0] + "/");
+    }
+
+    public File getData() {
+        return data;
+    }
+
+    public File getFolder() {
+        return folder;
     }
 
     //Check if the folder exists
@@ -62,23 +75,22 @@ public class FileManager {
         }
     }
 
-    //Delete and remake file if corrupted
-    public void remakeFile() {
+    //Remakes file if corrupted
+    public boolean remakeFile() {
         try {
-            if (data.delete()) {
-                System.out.println("File deleted");
-                createFile();
-            } else {
-                System.out.println("Unable to delete file: "
-                        + data.getAbsolutePath());
-            }
-        } catch (SecurityException e) {
-            System.out.println("ERROR ERROR: " + e.getMessage());
+            FileWriter writer = new FileWriter(data);
+            String dataString = "";
+            writer.write(dataString);
+            writer.close();
+            return true;
+
+        } catch (IOException e) {
+            return false;
         }
     }
 
     //Load data file into list
-    public void loadFile() throws FileNotFoundException {
+    public void loadFile() throws FileNotFoundException, FileCorruptedException {
 
         Scanner s = new Scanner(data);
 
@@ -117,8 +129,22 @@ public class FileManager {
         }
     }
 
+    //Appends into data file
+    public void write(Task task) throws FileCorruptedException{
+        try {
+            FileWriter writer = new FileWriter(data, true);
+            String dataString = task.toDataString() + "\n";
+
+            writer.write(dataString);
+            writer.close();
+
+        } catch (IOException e) {
+            throw new FileCorruptedException(e.getMessage());
+        }
+    }
+
     //Rewrite data file based on tasks list
-    public void rewrite() {
+    public void rewrite() throws FileCorruptedException {
         try {
             FileWriter writer = new FileWriter(data);
             String dataString = "";

@@ -9,7 +9,8 @@ public enum CommandType {
     DEADLINE("deadline", new AddDeadlineCommand()),
     EVENT("event", new AddEventCommand()),
     TEST("test", new TestCommand()),
-    DELETE("delete", new DeleteCommand());
+    DELETE("delete", new DeleteCommand()),
+    EXIT("bye", new ExitCommand());
 
     private final String keyword;
     private final Command command;

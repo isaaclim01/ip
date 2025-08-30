@@ -1,6 +1,6 @@
 package ip.exceptions;
 
-public class FileCorruptedException extends RuntimeException {
+public class FileCorruptedException extends Exception {
     public FileCorruptedException(String message) {
         super(message);
     }
