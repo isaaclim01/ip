@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class AddDeadlineCommandTest {
     @Test
@@ -39,5 +40,20 @@ public class AddDeadlineCommandTest {
         assertEquals(new Deadline("Finish 2030 Ip", LocalDate.parse("2026-08-31")).toString(),
                 testThree.toString());
 
+    }
+
+    @Test
+    public void execute_noDescription_exceptionThrown() throws FileCorruptedException {
+        try {
+            AddDeadlineCommand testCommand = new AddDeadlineCommand();
+            Ui ui = new Ui();
+            Storage storageStub = new StorageStub();
+            TaskList testList = new TaskList();
+            testCommand.execute("deadline", ui, storageStub, testList);
+            fail();
+
+        } catch (UnknownInputException e) {
+            assertEquals("Your Deadline has to have a description!", e.getMessage());
+        }
     }
 }

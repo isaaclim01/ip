@@ -1,20 +1,23 @@
 package ip.tasks;
 
-public class Event extends Task {
-    protected String startDate;
-    protected String endDate;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String startDate, String endDate) {
+public class Event extends Task {
+    protected LocalDate startDate;
+    protected LocalDate endDate;
+
+    public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return this.startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return this.endDate;
     }
 
@@ -31,6 +34,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]" + super.toString() + " (from: %s, to: %s)", this.startDate, this.endDate);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yy");
+        String startDateString = startDate.format(formatter);
+        String endDateString = endDate.format(formatter);
+        return String.format("[E]" + super.toString() + " (from: %s, to: %s)", startDateString, endDateString);
     }
 }

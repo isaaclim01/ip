@@ -112,7 +112,8 @@ public class FileStorage implements Storage {
                     task = new Deadline(splitCurr[2].trim(), LocalDate.parse(splitCurr[3].trim()));
                     break;
                 case "E":
-                    task = new Event(splitCurr[2].trim(), splitCurr[3].trim(), splitCurr[4].trim());
+                    task = new Event(splitCurr[2].trim(),
+                            LocalDate.parse(splitCurr[3].trim()), LocalDate.parse(splitCurr[4].trim()));
                     break;
                 default:
                     String err = String.format("Task %d does not have valid type", count);

@@ -33,16 +33,16 @@ public class AddEventCommand implements Command {
         if (splitInput[1].startsWith("from ")) {
             splitInput[1] = splitInput[1].substring(5);
             if (splitInput[1].isEmpty()) {
-                throw new UnknownInputException("Your Event has to have a start time inputted with '/from'");
+                throw new UnknownInputException("Your Event has to have a start date inputted with '/from'");
             }
         } else {
-            throw new UnknownInputException("Your Event has to have a start time inputted with '/from'");
+            throw new UnknownInputException("Your Event has to have a start date inputted with '/from'");
         }
 
         if (splitInput[2].startsWith("to ")) {
             splitInput[2] = splitInput[2].substring(3);
         } else {
-            throw new UnknownInputException("Your Event has to have a end time inputted with '/to'");
+            throw new UnknownInputException("Your Event has to have a end date inputted with '/to'");
         }
 
         String startDate = splitInput[1].trim();
@@ -50,19 +50,14 @@ public class AddEventCommand implements Command {
         boolean startIsDate = DateValidator.isValid(startDate);
         boolean endIsDate = DateValidator.isValid(endDate);
 
-        if (startIsDate) {
-            LocalDate date = LocalDate.parse(startDate);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yy");
-            startDate = date.format(formatter);
+        if (!startIsDate || !endIsDate) {
+            throw new UnknownInputException("Your Event has to have start and end dates with format yyyy-mm-dd");
         }
 
-        if (endIsDate) {
-            LocalDate date = LocalDate.parse(endDate);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yy");
-            endDate = date.format(formatter);
-        }
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
 
-        Event addTask = new Event(splitInput[0].trim(), startDate, endDate);
+        Event addTask = new Event(splitInput[0].trim(), start, end);
 
         storage.write(addTask);
         tasks.addTask(addTask);
