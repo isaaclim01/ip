@@ -3,17 +3,20 @@ package ip.commands;
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.main.Squiddy;
+import ip.main.Storage;
 import ip.tasks.Deadline;
+import ip.ui.Ui;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class AddDeadlineCommand implements Command {
     @Override
-    public void execute(String input) throws UnknownInputException, FileCorruptedException {
+    public void execute(String input, Ui ui, Storage storage) throws
+            UnknownInputException, FileCorruptedException {
 
         if (input.length() == 8) {
             throw new UnknownInputException("Your Deadline has to have a description!");
@@ -46,19 +49,8 @@ public class AddDeadlineCommand implements Command {
 
         Deadline addTask = new Deadline(splitInput[0].trim(), dueDate);
 
-        try {
-            FileWriter data = new FileWriter(Squiddy.DATA_PATHNAME, true);
-
-            String dataString = addTask.toDataString() + "\n";
-
-            data.write(dataString);
-            data.close();
-            Squiddy.tasks.add(addTask);
-
-            System.out.print("Let me write this down: \n" +
-                    addTask.toString().indent(8));
-        } catch (IOException e) {
-            throw new FileCorruptedException(e.getMessage());
-        }
+        storage.write(addTask);
+        Squiddy.tasks.add(addTask);
+        ui.showTaskInput(addTask);
     }
 }

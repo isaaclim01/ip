@@ -2,10 +2,12 @@ package ip.commands;
 
 import ip.exceptions.UnknownInputException;
 import ip.main.Squiddy;
+import ip.main.Storage;
+import ip.ui.Ui;
 
 public class TestCommand implements Command {
     @Override
-    public void execute(String input) throws UnknownInputException {
+    public void execute(String input, Ui ui, Storage storage) throws UnknownInputException {
         if (!input.equals("test")) {
             throw new UnknownInputException("Just enter 'test' by itself");
         }

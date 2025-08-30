@@ -1,12 +1,18 @@
 package ip.commands;
 
+import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.main.Squiddy;
+import ip.main.Storage;
 import ip.tasks.Task;
+import ip.ui.Ui;
+
+import java.io.FileNotFoundException;
 
 public class UnmarkCommand implements Command {
     @Override
-    public void execute(String input) throws UnknownInputException {
+    public void execute(String input, Ui ui, Storage storage)
+            throws UnknownInputException, FileNotFoundException, FileCorruptedException {
         try {
             String numberStr = input.substring(7).trim();
             int number = Integer.parseInt(numberStr);
@@ -16,7 +22,7 @@ public class UnmarkCommand implements Command {
             System.out.println("I hope this empty box make you feel bad for procrastinating: ");
             System.out.print(curr.toString().indent(8));
 
-            Squiddy.manager.rewrite();
+            storage.rewrite();
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'unmark' requires a number after");

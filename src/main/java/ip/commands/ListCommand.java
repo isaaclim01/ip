@@ -1,12 +1,18 @@
 package ip.commands;
 
+import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.main.Squiddy;
+import ip.main.Storage;
 import ip.tasks.Task;
+import ip.ui.Ui;
+
+import java.io.FileNotFoundException;
 
 public class ListCommand implements Command {
     @Override
-    public void execute(String input) throws UnknownInputException {
+    public void execute(String input, Ui ui, Storage storage) throws
+            UnknownInputException, FileCorruptedException, FileNotFoundException {
 
         if (!input.equals("list")) {
             throw new UnknownInputException("Just enter 'list' by itself");

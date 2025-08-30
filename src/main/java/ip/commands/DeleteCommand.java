@@ -1,13 +1,18 @@
 package ip.commands;
 
+import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
-import ip.main.FileManager;
 import ip.main.Squiddy;
+import ip.main.Storage;
 import ip.tasks.Task;
+import ip.ui.Ui;
+
+import java.io.FileNotFoundException;
 
 public class DeleteCommand implements Command {
     @Override
-    public void execute(String input) throws UnknownInputException {
+    public void execute(String input, Ui ui, Storage storage) throws
+            UnknownInputException, FileCorruptedException, FileNotFoundException {
         try {
             String numberStr = input.substring(7).trim();
             int number = Integer.parseInt(numberStr);
@@ -18,7 +23,7 @@ public class DeleteCommand implements Command {
             System.out.print(curr.toString().indent(8));
             System.out.println(String.format("You have %d tasks recorded", Squiddy.tasks.size()));
 
-            Squiddy.manager.rewrite();
+            storage.rewrite();
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'delete' requires a number after");
