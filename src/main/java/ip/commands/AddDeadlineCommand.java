@@ -38,13 +38,12 @@ public class AddDeadlineCommand implements Command {
         String dueDate = splitInput[1].trim();
         boolean isDate = DateValidator.isValid(dueDate);
 
-        if (isDate) {
-            LocalDate date = LocalDate.parse(dueDate);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yy");
-            dueDate = date.format(formatter);
+        if (!isDate) {
+            throw new UnknownInputException("Your Deadline has to have a due date in the format yyyy-mm-dd");
         }
 
-        Deadline addTask = new Deadline(splitInput[0].trim(), dueDate);
+        LocalDate date = LocalDate.parse(dueDate);
+        Deadline addTask = new Deadline(splitInput[0].trim(), date);
 
         storage.write(addTask);
         tasks.addTask(addTask);

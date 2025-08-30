@@ -4,6 +4,7 @@ import ip.commands.Command;
 import ip.commands.Parser;
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
+import ip.storage.FileStorage;
 import ip.storage.Storage;
 import ip.tasks.TaskList;
 import ip.ui.ErrorHandler;
@@ -24,7 +25,7 @@ public class Squiddy {
 
     public Squiddy(String dataPath) {
         this.ui = new Ui();
-        this.storage = new Storage(dataPath);
+        this.storage = new FileStorage(dataPath);
         this.parser = new Parser();
         this.handler = new ErrorHandler(storage, ui);
         isExit = false;

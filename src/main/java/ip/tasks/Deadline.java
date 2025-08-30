@@ -1,15 +1,18 @@
 package ip.tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    protected String dueDate;
+    protected LocalDate dueDate;
 
-    public Deadline(String description, String dueDate) {
+    public Deadline(String description, LocalDate dueDate) {
         super(description);
         this.dueDate = dueDate;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
@@ -26,7 +29,10 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]" + super.toString() + " (by: %s)", this.dueDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yy");
+        String dateString = dueDate.format(formatter);
+
+        return String.format("[D]" + super.toString() + " (by: %s)", dateString);
     }
 
 }
