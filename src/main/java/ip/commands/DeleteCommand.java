@@ -2,28 +2,26 @@ package ip.commands;
 
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
-import ip.main.Squiddy;
-import ip.main.Storage;
+import ip.storage.Storage;
 import ip.tasks.Task;
+import ip.tasks.TaskList;
 import ip.ui.Ui;
 
 import java.io.FileNotFoundException;
 
 public class DeleteCommand implements Command {
     @Override
-    public void execute(String input, Ui ui, Storage storage) throws
-            UnknownInputException, FileCorruptedException, FileNotFoundException {
+    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+                UnknownInputException, FileCorruptedException, FileNotFoundException {
         try {
             String numberStr = input.substring(7).trim();
             int number = Integer.parseInt(numberStr);
-            Task curr = Squiddy.tasks.get(number - 1);
-            Squiddy.tasks.remove(number - 1);
+            Task curr = tasks.get(number - 1);
+            tasks.remove(number - 1);
 
-            System.out.println("Removing this task: ");
-            System.out.print(curr.toString().indent(8));
-            System.out.println(String.format("You have %d tasks recorded", Squiddy.tasks.size()));
+            ui.showDeleteCommand(curr, tasks.size());
 
-            storage.rewrite();
+            storage.rewrite(tasks);
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'delete' requires a number after");

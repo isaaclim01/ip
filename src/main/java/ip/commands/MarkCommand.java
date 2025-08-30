@@ -2,27 +2,26 @@ package ip.commands;
 
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
-import ip.main.Squiddy;
-import ip.main.Storage;
+import ip.storage.Storage;
 import ip.tasks.Task;
+import ip.tasks.TaskList;
 import ip.ui.Ui;
 
 import java.io.FileNotFoundException;
 
 public class MarkCommand implements Command {
     @Override
-    public void execute(String input, Ui ui, Storage storage) throws
-            UnknownInputException, FileCorruptedException, FileNotFoundException {
+    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+                UnknownInputException, FileCorruptedException, FileNotFoundException {
         try {
             String numberStr = input.substring(5).trim();
             int number = Integer.parseInt(numberStr);
-            Task curr = Squiddy.tasks.get(number - 1);
+            Task curr = tasks.get(number - 1);
             curr.markDone();
 
-            System.out.println("OK, you've completed this: ");
-            System.out.print(curr.toString().indent(8));
+            ui.showMark(curr);
 
-            storage.rewrite();
+            storage.rewrite(tasks);
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'mark' requires a number after");

@@ -2,23 +2,19 @@ package ip.commands;
 
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
-import ip.main.Squiddy;
-import ip.main.Storage;
-import ip.tasks.Deadline;
+import ip.storage.Storage;
 import ip.tasks.Event;
+import ip.tasks.TaskList;
 import ip.ui.Ui;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
 public class AddEventCommand implements Command {
     @Override
-    public void execute(String input, Ui ui, Storage storage) throws
-            UnknownInputException, FileCorruptedException {
+    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+                UnknownInputException, FileCorruptedException {
 
         if (input.length() == 5) {
             throw new UnknownInputException("Your Event has to have a description!");
@@ -69,7 +65,7 @@ public class AddEventCommand implements Command {
         Event addTask = new Event(splitInput[0].trim(), startDate, endDate);
 
         storage.write(addTask);
-        Squiddy.tasks.add(addTask);
+        tasks.addTask(addTask);
         ui.showTaskInput(addTask);
 
     }

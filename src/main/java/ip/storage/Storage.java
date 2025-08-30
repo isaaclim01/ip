@@ -1,18 +1,13 @@
-package ip.main;
+package ip.storage;
 
 import ip.exceptions.FileCorruptedException;
-import ip.tasks.Deadline;
-import ip.tasks.Event;
-import ip.tasks.Task;
-import ip.tasks.ToDo;
+import ip.tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
-import static ip.main.Squiddy.tasks;
 
 public class Storage {
 
@@ -90,7 +85,7 @@ public class Storage {
     }
 
     //Load data file into list
-    public void loadFile() throws FileNotFoundException, FileCorruptedException {
+    public void loadFile(TaskList tasks) throws FileNotFoundException, FileCorruptedException {
 
         Scanner s = new Scanner(data);
 
@@ -121,7 +116,7 @@ public class Storage {
                     task.markDone();
                 }
 
-                tasks.add(task);
+                tasks.addTask(task);
 
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new FileCorruptedException(e.getMessage());
@@ -144,7 +139,7 @@ public class Storage {
     }
 
     //Rewrite data file based on tasks list
-    public void rewrite() throws FileCorruptedException {
+    public void rewrite(TaskList tasks) throws FileCorruptedException {
         try {
             FileWriter writer = new FileWriter(data);
             String dataString = "";

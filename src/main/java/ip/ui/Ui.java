@@ -1,5 +1,6 @@
 package ip.ui;
 
+import ip.Squiddy;
 import ip.tasks.Task;
 
 import java.io.InputStream;
@@ -34,7 +35,9 @@ public class Ui {
 
     //Shows the divider line
     public void showDivider() {
-        output.println(DIVIDER);
+        if (!Squiddy.IS_TEST_MODE) {
+            output.println(DIVIDER);
+        }
     }
 
     //Reads user input and returns it as a string
@@ -75,10 +78,54 @@ public class Ui {
         output.println("Error not supported: " + msg);
     }
 
+    //Shows task details after executing command
+    public void showTaskDetails(Task task) {
+        output.println(task.toString().indent(8));
+    }
+
     //Shows message after task input
     public void showTaskInput(Task task) {
         output.println("Let me write this down:");
-        output.println(task.toString().indent(8));
+        showTaskDetails(task);
+    }
+
+    //Shows message after delete command
+    public void showDeleteCommand(Task task, int size) {
+        output.println("Removing this task: ");
+        showTaskDetails(task);
+        output.println(String.format("You have %d tasks recorded", size));
+    }
+
+    //Shows list of tasks
+    public void showListContent(Task task, int index) {
+        String taskString = String.format("%d. %s", index, task.toString()).indent(8);
+        output.println(taskString);
+    }
+
+    //Shows a message after mark command
+    public void showMark(Task task) {
+        output.println("OK, you've completed this: ");
+        showTaskDetails(task);
+    }
+
+    //Shows a message after unmark command
+    public void showUnmark(Task task) {
+        output.println("Why have you not completed this: ");
+        showTaskDetails(task);
+    }
+
+    //Shows a message for repeat command
+    public void showRepeat(String repeat) {
+        output.println(String.format("What would you like me to do with '%s'?", repeat));
+    }
+
+    //Shows a message for test mode
+    public void showTestMode() {
+        if (Squiddy.IS_TEST_MODE) {
+            output.println("Switched to test mode and removed the horizontal lines");
+        } else {
+            output.println("Turned off test mode");
+        }
     }
 
 }

@@ -2,7 +2,7 @@ package ip.ui;
 
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
-import ip.main.Storage;
+import ip.storage.Storage;
 
 import java.io.FileNotFoundException;
 

@@ -1,19 +1,18 @@
-package ip.main;
+package ip;
 
 import ip.commands.Command;
 import ip.commands.Parser;
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
-import ip.tasks.Task;
+import ip.storage.Storage;
+import ip.tasks.TaskList;
 import ip.ui.ErrorHandler;
 import ip.ui.Ui;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public class Squiddy {
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
     public static boolean IS_TEST_MODE = false;
 
     private final Ui ui;
@@ -21,6 +20,7 @@ public class Squiddy {
     private final Parser parser;
     private final ErrorHandler handler;
     private boolean isExit;
+    private final TaskList tasks;
 
     public Squiddy(String dataPath) {
         this.ui = new Ui();
@@ -28,6 +28,7 @@ public class Squiddy {
         this.parser = new Parser();
         this.handler = new ErrorHandler(storage, ui);
         isExit = false;
+        this.tasks = new TaskList();
     }
 
     //Starts up by loading storage
@@ -35,7 +36,7 @@ public class Squiddy {
         storage.start();
 
         try {
-            storage.loadFile();
+            storage.loadFile(tasks);
         } catch (FileNotFoundException | FileCorruptedException e) {
             boolean result = handler.handleError(e);
             isExit = !result;
@@ -60,7 +61,7 @@ public class Squiddy {
                 String userInput = ui.readCommand().toLowerCase();
                 ui.showDivider();
                 Command c = parser.getCommand(userInput);
-                c.execute(userInput, ui, storage);
+                c.execute(userInput, ui, storage, tasks);
                 isExit = c.isExit();
             } catch (UnknownInputException | FileNotFoundException | FileCorruptedException e) {
                 boolean result = handler.handleError(e);
