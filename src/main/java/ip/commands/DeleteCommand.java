@@ -9,7 +9,16 @@ import ip.ui.Ui;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Command to delete task from TaskList based on index
+ */
 public class DeleteCommand implements Command {
+    /**
+     * @inheritDoc
+     * @throws UnknownInputException if task does not exist or no index is given
+     * Deletes task from TaskList based on index displayed on UI
+     * Rewrites data file with updated TaskList and calls UI
+     */
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException, FileNotFoundException {

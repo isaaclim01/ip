@@ -128,4 +128,8 @@ public class Ui {
         }
     }
 
+    //Shows a message before displaying List
+    public void showListHeader() {
+        output.println("Let's see what you've got: ");
+    }
 }

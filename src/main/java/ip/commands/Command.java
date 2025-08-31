@@ -8,9 +8,22 @@ import ip.ui.Ui;
 
 import java.io.FileNotFoundException;
 
+/**
+ * An interface describing commands that can be called by users
+ */
 public interface Command {
 
-    //Executes command
+    /**
+     * Executes a command based on user input
+     *
+     * @param input User Input
+     * @param ui UI used to output responses
+     * @param storage Storage of the data file
+     * @param tasks TaskList storing all tasks
+     * @throws UnknownInputException When user input is missing parameters
+     * @throws FileNotFoundException If data file cannot be found
+     * @throws FileCorruptedException If data file has been modified and does not have correct format
+     */
     void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileNotFoundException, FileCorruptedException;
 

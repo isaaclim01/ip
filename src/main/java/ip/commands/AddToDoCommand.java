@@ -7,7 +7,16 @@ import ip.tasks.TaskList;
 import ip.tasks.ToDo;
 import ip.ui.Ui;
 
+/**
+ * Command to add Todo task to task list when given one as input
+ */
 public class AddToDoCommand implements Command {
+
+    /**
+     * @inheritDoc
+     * @throws UnknownInputException if input is missing description
+     * Adds ToDo Task into TaskList, appends task into data file and calls UI for response
+     */
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException {

@@ -6,7 +6,17 @@ import ip.storage.Storage;
 import ip.tasks.TaskList;
 import ip.ui.Ui;
 
+/**
+ * Command to enable test mode which removes horizontal lines for output matching
+ */
 public class TestCommand implements Command {
+
+    /**
+     * @inheritDoc
+     * @throws UnknownInputException if other words are in the input
+     * Toggles test mode setting
+     * Shows message on UI depending on test mode being enabled or disabled
+     */
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws UnknownInputException {
         if (!input.equals("test")) {

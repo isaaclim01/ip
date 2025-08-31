@@ -9,7 +9,17 @@ import ip.ui.Ui;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Command to mark task as done
+ */
 public class MarkCommand implements Command {
+
+    /**
+     * @inheritDoc
+     * @throws UnknownInputException if task does not exist or no index is given
+     * Marks task as done from TaskList based on index displayed on UI
+     * Rewrites data file with updated TaskList and calls UI
+     */
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException, FileNotFoundException {

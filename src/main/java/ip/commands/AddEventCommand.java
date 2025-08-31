@@ -8,10 +8,18 @@ import ip.tasks.TaskList;
 import ip.ui.Ui;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Command to add Event task to task list when given one as input
+ */
 public class AddEventCommand implements Command {
+
+    /**
+     * @inheritDoc
+     * @throws UnknownInputException if input is missing description, '/from' and '/to'
+     * or valid startDate and endDate
+     * Adds Event task into TaskList, appends task into data file and calls UI for response
+     */
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException {
