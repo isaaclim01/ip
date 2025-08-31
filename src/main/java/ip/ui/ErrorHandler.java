@@ -1,22 +1,15 @@
 package ip.ui;
 
+import java.io.FileNotFoundException;
+
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.storage.Storage;
-
-import java.io.FileNotFoundException;
 
 public class ErrorHandler {
 
     private final Storage storage;
     private final Ui ui;
-
-    public enum ErrorCode {
-        UNKNOWN,
-        NOT_FOUND,
-        CORRUPT,
-        NONE
-    }
 
     public ErrorHandler(Storage storage, Ui ui) {
         this.storage = storage;
@@ -68,5 +61,12 @@ public class ErrorHandler {
         default:
             return false;
         }
+    }
+
+    public enum ErrorCode {
+        UNKNOWN,
+        NOT_FOUND,
+        CORRUPT,
+        NONE
     }
 }

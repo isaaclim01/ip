@@ -1,5 +1,7 @@
 package ip.commands;
 
+import java.time.LocalDate;
+
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.storage.Storage;
@@ -7,14 +9,11 @@ import ip.tasks.Event;
 import ip.tasks.TaskList;
 import ip.ui.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 
 public class AddEventCommand implements Command {
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
-                UnknownInputException, FileCorruptedException {
+            UnknownInputException, FileCorruptedException {
 
         if (input.length() == 5) {
             throw new UnknownInputException("Your Event has to have a description!");

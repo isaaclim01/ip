@@ -10,7 +10,7 @@ import ip.ui.Ui;
 public class AddToDoCommand implements Command {
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
-                UnknownInputException, FileCorruptedException {
+            UnknownInputException, FileCorruptedException {
         if (input.length() == 4 || input.substring(5).trim().isEmpty()) {
             throw new UnknownInputException("Your ToDo has to have a description!");
         }

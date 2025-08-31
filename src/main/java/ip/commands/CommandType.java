@@ -20,10 +20,6 @@ public enum CommandType {
         this.command = command;
     }
 
-    public Command getCommand() {
-        return this.command;
-    }
-
     public static CommandType findCommand(String input) {
         if (input == null || input.trim().isEmpty()) {
             return REPEAT;
@@ -42,5 +38,9 @@ public enum CommandType {
         }
 
         return REPEAT;
+    }
+
+    public Command getCommand() {
+        return this.command;
     }
 }
