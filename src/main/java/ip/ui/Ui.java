@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Ui {
 
-    private static final String DIVIDER = "—".repeat(50);
+    private static final String DIVIDER = "-".repeat(50);
     private final Scanner input;
     private final PrintStream output;
 
