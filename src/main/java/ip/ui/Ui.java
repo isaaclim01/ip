@@ -2,6 +2,7 @@ package ip.ui;
 
 import ip.Squiddy;
 import ip.tasks.Task;
+import ip.tasks.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -126,6 +127,23 @@ public class Ui {
         } else {
             output.println("Turned off test mode");
         }
+    }
+
+    //Shows a message for find results
+    public void showFindCommand(TaskList results) {
+        String msg = String.format("I found %d tasks:", results.size());
+        output.println(msg);
+        int index = 1;
+        for (Task task: results) {
+            showListContent(task, index++);
+        }
+    }
+
+    //Shows a message when there are no results
+    public void showNoResult(String keyword) {
+        String msg = String.format("There are no tasks containing '%s'", keyword);
+        output.println(msg);
+        output.println("Search using a better keyword");
     }
 
 }

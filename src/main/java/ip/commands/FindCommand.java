@@ -1,0 +1,49 @@
+package ip.commands;
+
+import ip.exceptions.UnknownInputException;
+import ip.storage.Storage;
+import ip.tasks.Task;
+import ip.tasks.TaskList;
+import ip.ui.Ui;
+
+/**
+ * Command to find a task by searching for a keyword in the task description
+ */
+public class FindCommand implements Command {
+
+    /**
+     * @inheritDoc
+     * @throws UnknownInputException if find has no keyword or list is empty
+     * Finds tasks in the task list that has matching keyword
+     */
+    @Override
+    public void execute(String input, Ui ui, Storage storage, TaskList tasks)
+            throws UnknownInputException {
+
+        if (input.equals("find")) {
+            throw new UnknownInputException("'find' needs a keyword after");
+        }
+
+        if (tasks.isEmpty()) {
+            throw new UnknownInputException("what do you hope to find in an empty list?");
+        }
+
+        String keyword = input.substring(5).trim();
+
+        TaskList results = new TaskList();
+        int max = tasks.size();
+
+        for (int i = 0; i < max; i++) {
+            Task curr = tasks.get(i);
+            if (curr.getDescription().contains(keyword)) {
+                results.addTask(curr);
+            }
+        }
+
+        if (results.isEmpty()) {
+            ui.showNoResult(keyword);
+        } else {
+            ui.showFindCommand(results);
+        }
+    }
+}
