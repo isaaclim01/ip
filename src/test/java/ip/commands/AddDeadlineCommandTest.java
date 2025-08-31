@@ -44,16 +44,53 @@ public class AddDeadlineCommandTest {
 
     @Test
     public void execute_noDescription_exceptionThrown() throws FileCorruptedException {
+        AddDeadlineCommand testCommand = new AddDeadlineCommand();
+        Ui ui = new Ui();
+        Storage storageStub = new StorageStub();
+        TaskList testList = new TaskList();
+
+        try {
+            testCommand.execute("deadline", ui, storageStub, testList);
+            fail();
+        } catch (UnknownInputException e) {
+            assertEquals("Your Deadline has to have a description!", e.getMessage());
+        }
+
+        try {
+            testCommand.execute("deadline /by 2022-05-30", ui, storageStub, testList);
+            fail();
+        } catch (UnknownInputException e) {
+            assertEquals("Your Deadline has to have a description!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void execute_noBy_exceptionThrown() throws FileCorruptedException {
         try {
             AddDeadlineCommand testCommand = new AddDeadlineCommand();
             Ui ui = new Ui();
             Storage storageStub = new StorageStub();
             TaskList testList = new TaskList();
-            testCommand.execute("deadline", ui, storageStub, testList);
+            testCommand.execute("deadline homework /2022-05-30", ui, storageStub, testList);
             fail();
 
         } catch (UnknownInputException e) {
-            assertEquals("Your Deadline has to have a description!", e.getMessage());
+            assertEquals("Your Deadline has to have a due date inputted with '/by'", e.getMessage());
+        }
+    }
+
+    @Test
+    public void execute_invalidDate_exceptionThrown() throws FileCorruptedException {
+        try {
+            AddDeadlineCommand testCommand = new AddDeadlineCommand();
+            Ui ui = new Ui();
+            Storage storageStub = new StorageStub();
+            TaskList testList = new TaskList();
+            testCommand.execute("deadline homework /by 5pm", ui, storageStub, testList);
+            fail();
+
+        } catch (UnknownInputException e) {
+            assertEquals("Your Deadline has to have a due date in the format yyyy-mm-dd", e.getMessage());
         }
     }
 }
