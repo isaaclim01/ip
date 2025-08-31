@@ -1,11 +1,11 @@
 package ip.ui;
 
-import ip.Squiddy;
-import ip.tasks.Task;
-
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import ip.Squiddy;
+import ip.tasks.Task;
 
 public class Ui {
 

@@ -1,18 +1,18 @@
 package ip.storage;
 
-import ip.exceptions.FileCorruptedException;
-import ip.tasks.Deadline;
-import ip.tasks.Event;
-import ip.tasks.Task;
-import ip.tasks.TaskList;
-import ip.tasks.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import ip.exceptions.FileCorruptedException;
+import ip.tasks.Deadline;
+import ip.tasks.Event;
+import ip.tasks.Task;
+import ip.tasks.TaskList;
+import ip.tasks.ToDo;
 
 public class FileStorage implements Storage {
 

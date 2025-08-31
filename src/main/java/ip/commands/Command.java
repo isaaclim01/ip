@@ -1,12 +1,12 @@
 package ip.commands;
 
+import java.io.FileNotFoundException;
+
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.storage.Storage;
 import ip.tasks.TaskList;
 import ip.ui.Ui;
-
-import java.io.FileNotFoundException;
 
 /**
  * An interface describing commands that can be called by users

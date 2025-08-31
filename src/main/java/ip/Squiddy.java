@@ -1,5 +1,7 @@
 package ip;
 
+import java.io.FileNotFoundException;
+
 import ip.commands.Command;
 import ip.commands.Parser;
 import ip.exceptions.FileCorruptedException;
@@ -10,8 +12,6 @@ import ip.tasks.TaskList;
 import ip.ui.ErrorHandler;
 import ip.ui.Ui;
 
-import java.io.FileNotFoundException;
-
 public class Squiddy {
 
     private static boolean isTestMode = false;
@@ -20,8 +20,8 @@ public class Squiddy {
     private final Storage storage;
     private final Parser parser;
     private final ErrorHandler handler;
-    private boolean isExit;
     private final TaskList tasks;
+    private boolean isExit;
 
     public Squiddy(String dataPath) {
         this.ui = new Ui();
@@ -30,6 +30,18 @@ public class Squiddy {
         this.handler = new ErrorHandler(storage, ui);
         isExit = false;
         this.tasks = new TaskList();
+    }
+
+    public static void setIsTestMode() {
+        isTestMode = !isTestMode;
+    }
+
+    public static boolean getIsTestMode() {
+        return isTestMode;
+    }
+
+    public static void main(String[] args) {
+        new Squiddy("data/squid.txt").run();
     }
 
     //Starts up by loading storage
@@ -71,17 +83,5 @@ public class Squiddy {
                 ui.showDivider();
             }
         }
-    }
-
-    public static void setIsTestMode() {
-        isTestMode = !isTestMode;
-    }
-
-    public static boolean getIsTestMode() {
-        return isTestMode;
-    }
-
-    public static void main(String[] args) {
-        new Squiddy("data/squid.txt").run();
     }
 }

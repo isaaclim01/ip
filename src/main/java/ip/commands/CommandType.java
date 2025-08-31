@@ -23,12 +23,9 @@ public enum CommandType {
         this.command = command;
     }
 
-    public Command getCommand() {
-        return this.command;
-    }
-
     /**
      * Returns the CommandType matching the user input
+     *
      * @param input User Input
      * @return CommandType for the command matching user input
      */
@@ -50,5 +47,9 @@ public enum CommandType {
         }
 
         return REPEAT;
+    }
+
+    public Command getCommand() {
+        return this.command;
     }
 }

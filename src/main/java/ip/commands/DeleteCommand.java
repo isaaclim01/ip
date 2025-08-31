@@ -1,13 +1,13 @@
 package ip.commands;
 
+import java.io.FileNotFoundException;
+
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.storage.Storage;
 import ip.tasks.Task;
 import ip.tasks.TaskList;
 import ip.ui.Ui;
-
-import java.io.FileNotFoundException;
 
 /**
  * Command to delete task from TaskList based on index
@@ -21,7 +21,7 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
-                UnknownInputException, FileCorruptedException, FileNotFoundException {
+            UnknownInputException, FileCorruptedException, FileNotFoundException {
         try {
             String numberStr = input.substring(7).trim();
             int number = Integer.parseInt(numberStr);

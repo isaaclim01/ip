@@ -1,13 +1,13 @@
 package ip.commands;
 
+import java.io.FileNotFoundException;
+
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.storage.Storage;
 import ip.tasks.Task;
 import ip.tasks.TaskList;
 import ip.ui.Ui;
-
-import java.io.FileNotFoundException;
 
 /**
  * Command to display TaskList
@@ -31,7 +31,7 @@ public class ListCommand implements Command {
             throw new UnknownInputException("your list is empty");
         }
 
-        ui.showListHeader();
+        System.out.println("Let's see what you've got: ");
 
         int max = tasks.size();
 
