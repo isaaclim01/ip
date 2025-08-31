@@ -9,7 +9,16 @@ import ip.ui.Ui;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Command to display TaskList
+ */
 public class ListCommand implements Command {
+
+    /**
+     * @inheritDoc
+     * @throws UnknownInputException if other words are included or empty TaskList
+     * Displays the current TaskList by iterating through the TaskList and printing each to output
+     */
     @Override
     public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException, FileNotFoundException {
@@ -22,7 +31,7 @@ public class ListCommand implements Command {
             throw new UnknownInputException("your list is empty");
         }
 
-        System.out.println("Let's see what you've got: ");
+        ui.showListHeader();
 
         int max = tasks.size();
 

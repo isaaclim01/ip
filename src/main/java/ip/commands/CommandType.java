@@ -1,5 +1,8 @@
 package ip.commands;
 
+/**
+ * Enum of commands available to be called by the user
+ */
 public enum CommandType {
     LIST("list", new ListCommand()),
     MARK("mark", new MarkCommand()),
@@ -24,6 +27,11 @@ public enum CommandType {
         return this.command;
     }
 
+    /**
+     * Returns the CommandType matching the user input
+     * @param input User Input
+     * @return CommandType for the command matching user input
+     */
     public static CommandType findCommand(String input) {
         if (input == null || input.trim().isEmpty()) {
             return REPEAT;
