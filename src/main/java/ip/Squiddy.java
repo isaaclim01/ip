@@ -23,6 +23,10 @@ public class Squiddy {
     private final TaskList tasks;
     private boolean isExit;
 
+    public Squiddy() {
+        this("data/squid.txt");
+    }
+
     public Squiddy(String dataPath) {
         this.ui = new Ui();
         this.storage = new FileStorage(dataPath);
@@ -83,5 +87,12 @@ public class Squiddy {
                 ui.showDivider();
             }
         }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Squiddy heard: " + input;
     }
 }
