@@ -54,10 +54,6 @@ shadowJar {
 
 run{
     standardInput = System.in
-    jvmArgs = [
-            '-Dprism.lcdtext=false',
-            '-Dprism.order=sw'
-    ]
 }
 
 checkstyle{
