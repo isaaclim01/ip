@@ -31,7 +31,7 @@ public class UnmarkCommand implements Command {
 
             ui.showUnmark(curr);
 
-            storage.rewrite(tasks);
+            storage.rewriteStorage(tasks);
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'unmark' requires a number after");

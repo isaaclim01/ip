@@ -67,9 +67,9 @@ public class Squiddy {
         isExit = false;
         start();
         if (!isExit) {
-            ui.showWelcome();
+            ui.showWelcomeMsg();
         } else {
-            ui.showExit();
+            ui.showExitMsg();
         }
         ui.showDivider();
 

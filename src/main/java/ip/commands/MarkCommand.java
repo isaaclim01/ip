@@ -31,7 +31,7 @@ public class MarkCommand implements Command {
 
             ui.showMark(curr);
 
-            storage.rewrite(tasks);
+            storage.rewriteStorage(tasks);
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'mark' requires a number after");

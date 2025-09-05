@@ -55,8 +55,8 @@ public class AddEventCommand implements Command {
 
         String startDate = splitInput[1].trim();
         String endDate = splitInput[2].trim();
-        boolean startIsDate = DateValidator.isValid(startDate);
-        boolean endIsDate = DateValidator.isValid(endDate);
+        boolean startIsDate = DateValidator.isValidDate(startDate);
+        boolean endIsDate = DateValidator.isValidDate(endDate);
 
         if (!startIsDate || !endIsDate) {
             throw new UnknownInputException("Your Event has to have start and end dates with format yyyy-mm-dd");
@@ -67,7 +67,7 @@ public class AddEventCommand implements Command {
 
         Event addTask = new Event(splitInput[0].trim(), start, end);
 
-        storage.write(addTask);
+        storage.writeToStorage(addTask);
         tasks.addTask(addTask);
         ui.showTaskInput(addTask);
 

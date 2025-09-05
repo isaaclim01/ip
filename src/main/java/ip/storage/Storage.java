@@ -14,10 +14,10 @@ import ip.tasks.TaskList;
 public interface Storage {
 
     //Appends into data file
-    void write(Task task) throws FileCorruptedException;
+    void writeToStorage(Task task) throws FileCorruptedException;
 
     //Rewrite data file based on tasks list
-    void rewrite(TaskList tasks) throws FileCorruptedException;
+    void rewriteStorage(TaskList tasks) throws FileCorruptedException;
 
     //Check and create folder and file if they do not exist
     void start();

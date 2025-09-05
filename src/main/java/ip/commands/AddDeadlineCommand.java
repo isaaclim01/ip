@@ -31,29 +31,29 @@ public class AddDeadlineCommand implements Command {
             throw new UnknownInputException("Your Deadline has to have a due date inputted with '/by'");
         }
 
-        String[] splitInput = input.substring(9).split("/");
+        String[] splitInputs = input.substring(9).split("/");
 
-        if (splitInput[0].trim().isEmpty()) {
+        if (splitInputs[0].trim().isEmpty()) {
             throw new UnknownInputException("Your Deadline has to have a description!");
         }
 
         try {
-            splitInput[1] = splitInput[1].substring(3);
+            splitInputs[1] = splitInputs[1].substring(3);
         } catch (StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("Add the deadline after '/by'");
         }
 
-        String dueDate = splitInput[1].trim();
-        boolean isDate = DateValidator.isValid(dueDate);
+        String dueDate = splitInputs[1].trim();
+        boolean isDate = DateValidator.isValidDate(dueDate);
 
         if (!isDate) {
             throw new UnknownInputException("Your Deadline has to have a due date in the format yyyy-mm-dd");
         }
 
         LocalDate date = LocalDate.parse(dueDate);
-        Deadline addTask = new Deadline(splitInput[0].trim(), date);
+        Deadline addTask = new Deadline(splitInputs[0].trim(), date);
 
-        storage.write(addTask);
+        storage.writeToStorage(addTask);
         tasks.addTask(addTask);
         ui.showTaskInput(addTask);
     }

@@ -24,13 +24,13 @@ public class Ui {
     }
 
     //Shows welcome message
-    public void showWelcome() {
+    public void showWelcomeMsg() {
         output.println("I'm Squiddy, forced to be text in your terminal. "
                 + "\nType a task and I'll decide if I want to help you remember it");
     }
 
     //Shows exit message
-    public void showExit() {
+    public void showExitMsg() {
         output.println("Bye. Please don't bother me again.");
     }
 

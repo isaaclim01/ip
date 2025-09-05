@@ -25,7 +25,7 @@ public class AddToDoCommand implements Command {
         }
         ToDo addTask = new ToDo(input.substring(5).trim());
 
-        storage.write(addTask);
+        storage.writeToStorage(addTask);
         tasks.addTask(addTask);
         ui.showTaskInput(addTask);
     }

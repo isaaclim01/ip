@@ -30,7 +30,7 @@ public class DeleteCommand implements Command {
 
             ui.showDeleteCommand(curr, tasks.size());
 
-            storage.rewrite(tasks);
+            storage.rewriteStorage(tasks);
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'delete' requires a number after");
