@@ -1,8 +1,10 @@
 package ip.ui;
 
-import ip.Squiddy;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import ip.Squiddy;
+import ip.exceptions.FileCorruptedException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,6 +30,8 @@ public class Main extends Application {
             squiddy.start();
             fxmlLoader.<MainWindow>getController().setSquiddy(squiddy);  // inject the Squiddy instance
             stage.show();
+        } catch (FileNotFoundException | FileCorruptedException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

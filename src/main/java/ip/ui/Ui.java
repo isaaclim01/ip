@@ -60,19 +60,9 @@ public class Ui {
         return "Oh man: " + msg;
     }
 
-    //Shows error message for file corruption
-    public String showFileCorruptedError(String msg) {
-        if (msg.equals("")) {
-            return "Remake file? (y/n)";
-        } else {
-            return "Squiddy is corrupted: " + msg
-                    + "\nRemake file? (y/n)";
-        }
-    }
-
     //Shows a message when user refuses to remake file
     public String showRefuseRemake() {
-        return "Please fix file manually";
+        return "Squiddy is corrupted: Please fix file manually";
     }
 
     //Shows error message for other errors
@@ -87,14 +77,14 @@ public class Ui {
 
     //Shows message after task input
     public String showTaskInput(Task task) {
-        return "Let me write this down:"
+        return "Let me write this down: \n"
                 + showTaskDetails(task);
     }
 
     //Shows message after delete command
     public String showDeleteCommand(Task task, int size) {
-        String message = "Removing this task: " + showTaskDetails(task);
-        String taskNumber = String.format("You have %d tasks recorded", size);
+        String message = "Removing this task: \n" + showTaskDetails(task);
+        String taskNumber = String.format("\nYou have %d tasks recorded", size);
 
         return message + taskNumber;
     }
@@ -107,12 +97,12 @@ public class Ui {
 
     //Shows a message after mark command
     public String showMark(Task task) {
-        return "OK, you've completed this: " + showTaskDetails(task);
+        return "OK, you've completed this: \n" + showTaskDetails(task);
     }
 
     //Shows a message after unmark command
     public String showUnmark(Task task) {
-        return "Why have you not completed this: " + showTaskDetails(task);
+        return "Why have you not completed this: \n" + showTaskDetails(task);
     }
 
     //Shows a message for repeat command
@@ -144,7 +134,7 @@ public class Ui {
     //Shows a message when there are no results
     public String showNoResult(String keyword) {
         String title = String.format("There are no tasks containing '%s'", keyword);
-        return title + "Search using a better keyword";
+        return title + "\nSearch using a better keyword";
     }
 
     //Returns the current tasks in the TaskList

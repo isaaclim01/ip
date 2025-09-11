@@ -1,6 +1,7 @@
 package ip.ui;
 
 import ip.Squiddy;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -49,5 +50,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSquiddyDialog(squiddyText, squiddyImage)
         );
         userInput.clear();
+        if (squiddy.getIsExit()) {
+            Platform.exit();
+        }
     }
 }

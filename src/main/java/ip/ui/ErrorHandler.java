@@ -17,7 +17,7 @@ public class ErrorHandler {
     }
 
     //Handling of any exceptions
-    public boolean handleError(Exception e) {
+    public String handleError(Exception e) {
         String msg = e.getMessage();
         ErrorCode code = ErrorCode.NONE;
         if (e instanceof UnknownInputException) {
@@ -30,36 +30,20 @@ public class ErrorHandler {
 
         switch (code) {
         case UNKNOWN:
-            ui.showUnknownInputError(msg);
-            return true;
+            return ui.showUnknownInputError(msg);
 
         case NOT_FOUND:
-            ui.showFileNotFoundError(msg);
             storage.start();
-            return true;
+            return ui.showFileNotFoundError(msg);
 
         case CORRUPT:
-            ui.showFileCorruptedError(msg);
-            String remake = ui.readCommand();
-
-            while (!remake.equals("y") && !remake.equals("n")) {
-                ui.showFileCorruptedError("");
-                remake = ui.readCommand();
-            }
-
-            if (remake.equals("y")) {
-                return storage.remakeFile();
-            } else {
-                ui.showRefuseRemake();
-                return false;
-            }
+            return ui.showRefuseRemake();
 
         case NONE:
-            ui.showOtherError(e.getMessage());
-            return false;
+            return ui.showOtherError(e.getMessage());
 
         default:
-            return false;
+            return "This is not supposed to happen!";
         }
     }
 

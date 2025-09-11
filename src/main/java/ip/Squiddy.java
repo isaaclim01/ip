@@ -44,52 +44,18 @@ public class Squiddy {
         return isTestMode;
     }
 
-    public static void main(String[] args) {
-        new Squiddy("data/squid.txt").run();
-    }
-
     //Starts up by loading storage
-    public void start() {
+    public void start() throws FileNotFoundException, FileCorruptedException{
         storage.start();
-
-        try {
-            storage.loadFile(tasks);
-        } catch (FileNotFoundException | FileCorruptedException e) {
-            boolean result = handler.handleError(e);
-            isExit = !result;
-        } finally {
-            ui.showDivider();
-        }
-    }
-
-    //Runs the actual program
-    public void run() {
-        isExit = false;
-        start();
-        if (!isExit) {
-            ui.showWelcome();
-        } else {
-            ui.showExit();
-        }
-        ui.showDivider();
-        while (!isExit) {
-            try {
-                String userInput = ui.readCommand().toLowerCase();
-                ui.showDivider();
-                Command c = parser.getCommand(userInput);
-                c.execute(userInput, ui, storage, tasks);
-                isExit = c.isExit();
-            } catch (UnknownInputException | FileNotFoundException | FileCorruptedException e) {
-                boolean result = handler.handleError(e);
-                isExit = !result;
-            } finally {
-                ui.showDivider();
-            }
-        }
+        storage.loadFile(tasks);
     }
 
     public void setIsExit(boolean exit) {
         isExit = exit;
+    }
+
+    public boolean getIsExit() {
+        return isExit;
     }
 
     /**
@@ -106,8 +72,9 @@ public class Squiddy {
 
                 return response;
             } catch (UnknownInputException | FileNotFoundException | FileCorruptedException e) {
-                boolean result = handler.handleError(e);
-                isExit = !result;
+
+                String errorMsg = handler.handleError(e);
+                return errorMsg;
             }
         }
         return "";
