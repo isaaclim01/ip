@@ -28,7 +28,7 @@ public class MarkCommand implements Command {
             int number = Integer.parseInt(numberStr);
             Task curr = tasks.get(number - 1);
             curr.markDone();
-            storage.rewrite(tasks);
+            storage.rewriteStorage(tasks);
 
             return ui.showMark(curr);
 

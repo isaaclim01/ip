@@ -13,7 +13,7 @@ public class DateValidator {
      * @param dateStr User input date string
      * @return true if date is valid, false otherwise
      */
-    public static boolean isValid(String dateStr) {
+    public static boolean isValidDate(String dateStr) {
         try {
             LocalDate.parse(dateStr);
         } catch (DateTimeParseException e) {

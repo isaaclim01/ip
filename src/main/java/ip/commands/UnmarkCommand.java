@@ -28,7 +28,7 @@ public class UnmarkCommand implements Command {
             int number = Integer.parseInt(numberStr);
             Task curr = tasks.get(number - 1);
             curr.unmarkDone();
-            storage.rewrite(tasks);
+            storage.rewriteStorage(tasks);
 
             return ui.showUnmark(curr);
 

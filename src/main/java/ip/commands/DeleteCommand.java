@@ -27,7 +27,8 @@ public class DeleteCommand implements Command {
             int number = Integer.parseInt(numberStr);
             Task curr = tasks.get(number - 1);
             tasks.remove(number - 1);
-            storage.rewrite(tasks);
+
+            storage.rewriteStorage(tasks);
 
             return ui.showDeleteCommand(curr, tasks.size());
 

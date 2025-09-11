@@ -43,7 +43,7 @@ public class FileStorage implements Storage {
     }
 
     //Check if the file exists
-    public boolean checkFile() {
+    public boolean checkFileExists() {
         return data.exists();
     }
 
@@ -134,7 +134,7 @@ public class FileStorage implements Storage {
 
     //Appends into data file
     @Override
-    public void write(Task task) throws FileCorruptedException {
+    public void writeToStorage(Task task) throws FileCorruptedException {
         try {
             FileWriter writer = new FileWriter(data, true);
             String dataString = task.toDataString() + "\n";
@@ -149,7 +149,7 @@ public class FileStorage implements Storage {
 
     //Rewrite data file based on tasks list
     @Override
-    public void rewrite(TaskList tasks) throws FileCorruptedException {
+    public void rewriteStorage(TaskList tasks) throws FileCorruptedException {
         try {
             FileWriter writer = new FileWriter(data);
             StringBuilder dataString = new StringBuilder();
@@ -176,7 +176,7 @@ public class FileStorage implements Storage {
             createFolder();
         }
 
-        if (checkFile()) {
+        if (checkFileExists()) {
             System.out.println("Data loaded");
         } else {
             createFile();

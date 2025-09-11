@@ -21,7 +21,7 @@ public class ExitCommand implements Command {
             throw new UnknownInputException("Just enter 'bye' by itself");
         }
 
-        return ui.showExit();
+        return ui.showExitMsg();
     }
 
     /**

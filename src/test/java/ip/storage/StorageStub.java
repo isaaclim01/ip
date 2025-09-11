@@ -9,12 +9,12 @@ import java.io.FileNotFoundException;
 public class StorageStub implements Storage {
 
     @Override
-    public void write(Task task) throws FileCorruptedException {
+    public void writeToStorage(Task task) throws FileCorruptedException {
 
     }
 
     @Override
-    public void rewrite(TaskList tasks) throws FileCorruptedException {
+    public void rewriteStorage(TaskList tasks) throws FileCorruptedException {
 
     }
 
