@@ -21,17 +21,16 @@ public class UnmarkCommand implements Command {
      * Rewrites data file with updated TaskList and calls UI
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
             UnknownInputException, FileNotFoundException, FileCorruptedException {
         try {
             String numberStr = input.substring(7).trim();
             int number = Integer.parseInt(numberStr);
             Task curr = tasks.get(number - 1);
             curr.unmarkDone();
-
-            ui.showUnmark(curr);
-
             storage.rewrite(tasks);
+
+            return ui.showUnmark(curr);
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'unmark' requires a number after");

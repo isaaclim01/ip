@@ -24,7 +24,7 @@ public interface Command {
      * @throws FileNotFoundException If data file cannot be found
      * @throws FileCorruptedException If data file has been modified and does not have correct format
      */
-    void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+    String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileNotFoundException, FileCorruptedException;
 
     //Checks if command is an exit command

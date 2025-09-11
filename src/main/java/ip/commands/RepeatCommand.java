@@ -14,7 +14,7 @@ public class RepeatCommand implements Command {
      * Calls UI to display message for unknown command
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) {
-        ui.showRepeat(input);
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) {
+        return ui.showRepeat(input);
     }
 }

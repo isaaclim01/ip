@@ -20,17 +20,16 @@ public class DeleteCommand implements Command {
      * Rewrites data file with updated TaskList and calls UI
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
             UnknownInputException, FileCorruptedException, FileNotFoundException {
         try {
             String numberStr = input.substring(7).trim();
             int number = Integer.parseInt(numberStr);
             Task curr = tasks.get(number - 1);
             tasks.remove(number - 1);
-
-            ui.showDeleteCommand(curr, tasks.size());
-
             storage.rewrite(tasks);
+
+            return ui.showDeleteCommand(curr, tasks.size());
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'delete' requires a number after");

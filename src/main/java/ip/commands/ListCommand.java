@@ -20,7 +20,7 @@ public class ListCommand implements Command {
      * Displays the current TaskList by iterating through the TaskList and printing each to output
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException, FileNotFoundException {
 
         if (!input.equals("list")) {
@@ -31,13 +31,6 @@ public class ListCommand implements Command {
             throw new UnknownInputException("your list is empty");
         }
 
-        System.out.println("Let's see what you've got: ");
-
-        int max = tasks.size();
-
-        for (int i = 0; i < max; i++) {
-            Task curr = tasks.get(i);
-            ui.showListContent(curr, i + 1);
-        }
+        return ui.showListCommand(tasks);
     }
 }

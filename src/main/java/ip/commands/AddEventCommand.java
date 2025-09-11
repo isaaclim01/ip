@@ -21,7 +21,7 @@ public class AddEventCommand implements Command {
      * Adds Event task into TaskList, appends task into data file and calls UI for response
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException {
 
         if (input.length() == 5) {
@@ -69,7 +69,7 @@ public class AddEventCommand implements Command {
 
         storage.write(addTask);
         tasks.addTask(addTask);
-        ui.showTaskInput(addTask);
+        return ui.showTaskInput(addTask);
 
     }
 }

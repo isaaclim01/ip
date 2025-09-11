@@ -23,7 +23,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setSquiddy(squiddy);  // inject the Duke instance
+            squiddy.setIsExit(false);
+            //The error handling does not work for this line
+            squiddy.start();
+            fxmlLoader.<MainWindow>getController().setSquiddy(squiddy);  // inject the Squiddy instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

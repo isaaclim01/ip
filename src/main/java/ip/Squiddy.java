@@ -72,7 +72,6 @@ public class Squiddy {
             ui.showExit();
         }
         ui.showDivider();
-
         while (!isExit) {
             try {
                 String userInput = ui.readCommand().toLowerCase();
@@ -89,10 +88,28 @@ public class Squiddy {
         }
     }
 
+    public void setIsExit(boolean exit) {
+        isExit = exit;
+    }
+
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Squiddy heard: " + input;
+        while (!isExit) {
+            try {
+                String userInput = input.toLowerCase();
+
+                Command c = parser.getCommand(userInput);
+                String response = c.execute(userInput, ui, storage, tasks);
+                isExit = c.isExit();
+
+                return response;
+            } catch (UnknownInputException | FileNotFoundException | FileCorruptedException e) {
+                boolean result = handler.handleError(e);
+                isExit = !result;
+            }
+        }
+        return "";
     }
 }

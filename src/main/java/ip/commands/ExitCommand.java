@@ -16,12 +16,12 @@ public class ExitCommand implements Command {
      * Causes the application to exit
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws UnknownInputException {
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws UnknownInputException {
         if (!input.equals("bye")) {
             throw new UnknownInputException("Just enter 'bye' by itself");
         }
 
-        ui.showExit();
+        return ui.showExit();
     }
 
     /**

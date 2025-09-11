@@ -18,12 +18,12 @@ public class TestCommand implements Command {
      * Shows message on UI depending on test mode being enabled or disabled
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws UnknownInputException {
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws UnknownInputException {
         if (!input.equals("test")) {
             throw new UnknownInputException("Just enter 'test' by itself");
         }
 
         Squiddy.setIsTestMode();
-        ui.showTestMode();
+        return ui.showTestMode();
     }
 }

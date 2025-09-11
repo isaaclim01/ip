@@ -21,17 +21,16 @@ public class MarkCommand implements Command {
      * Rewrites data file with updated TaskList and calls UI
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
             UnknownInputException, FileCorruptedException, FileNotFoundException {
         try {
             String numberStr = input.substring(5).trim();
             int number = Integer.parseInt(numberStr);
             Task curr = tasks.get(number - 1);
             curr.markDone();
-
-            ui.showMark(curr);
-
             storage.rewrite(tasks);
+
+            return ui.showMark(curr);
 
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new UnknownInputException("'mark' requires a number after");

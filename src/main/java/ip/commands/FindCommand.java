@@ -17,7 +17,7 @@ public class FindCommand implements Command {
      * Finds tasks in the task list that has matching keyword
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks)
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks)
             throws UnknownInputException {
 
         if (input.equals("find")) {
@@ -41,9 +41,10 @@ public class FindCommand implements Command {
         }
 
         if (results.isEmpty()) {
-            ui.showNoResult(keyword);
-        } else {
-            ui.showFindCommand(results);
+            return ui.showNoResult(keyword);
         }
+
+        return ui.showFindCommand(results);
+
     }
 }

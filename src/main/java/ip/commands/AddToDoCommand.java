@@ -18,7 +18,7 @@ public class AddToDoCommand implements Command {
      * Adds ToDo Task into TaskList, appends task into data file and calls UI for response
      */
     @Override
-    public void execute(String input, Ui ui, Storage storage, TaskList tasks) throws
+    public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
             UnknownInputException, FileCorruptedException {
         if (input.length() == 4 || input.substring(5).trim().isEmpty()) {
             throw new UnknownInputException("Your ToDo has to have a description!");
@@ -27,6 +27,6 @@ public class AddToDoCommand implements Command {
 
         storage.write(addTask);
         tasks.addTask(addTask);
-        ui.showTaskInput(addTask);
+        return ui.showTaskInput(addTask);
     }
 }
