@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.storage.Storage;
-import ip.tasks.Task;
 import ip.tasks.TaskList;
 import ip.ui.Ui;
 
