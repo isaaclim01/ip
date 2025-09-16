@@ -13,6 +13,10 @@ import ip.ui.Ui;
  * Command to add deadline task to task list when given one as input
  */
 public class AddDeadlineCommand implements Command {
+    private static final String PREFIX = "deadline ";
+    private static final int PREFIX_LENGTH = PREFIX.length();
+    private static final String PREFIX_TWO = "by ";
+    private static final int PREFIX_TWO_LENGTH = PREFIX_TWO.length();
 
     /**
      * @inheritDoc
@@ -23,27 +27,29 @@ public class AddDeadlineCommand implements Command {
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException {
 
-        if (input.length() == 8) {
+        if (input.length() <= PREFIX_LENGTH) {
             throw new UnknownInputException("Your Deadline has to have a description!");
         }
 
-        if (!input.contains("/by")) {
+        if (!input.contains("/" + PREFIX_TWO)) {
             throw new UnknownInputException("Your Deadline has to have a due date inputted with '/by'");
         }
 
-        String[] splitInputs = input.substring(9).split("/");
+        String[] splitInputs = input.substring(PREFIX_LENGTH).split("/");
+        String taskDescription = splitInputs[0].trim();
 
-        if (splitInputs[0].trim().isEmpty()) {
+        if (taskDescription.isEmpty()) {
             throw new UnknownInputException("Your Deadline has to have a description!");
         }
 
-        try {
-            splitInputs[1] = splitInputs[1].substring(3);
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new UnknownInputException("Add the deadline after '/by'");
-        }
+        boolean hasNoDueDate = splitInputs[1].length() <= PREFIX_TWO_LENGTH;
+        boolean hasIncorrectFormat = !splitInputs[1].startsWith(PREFIX_TWO);
 
-        String dueDate = splitInputs[1].trim();
+        if (hasNoDueDate || hasIncorrectFormat) {
+            throw new UnknownInputException("Your Deadline has to have a due date inputted with '/by'");
+        }
+        
+        String dueDate = splitInputs[1].substring(PREFIX_TWO_LENGTH).trim();
         boolean isDate = DateValidator.isValidDate(dueDate);
 
         if (!isDate) {
@@ -51,10 +57,11 @@ public class AddDeadlineCommand implements Command {
         }
 
         LocalDate date = LocalDate.parse(dueDate);
-        Deadline addTask = new Deadline(splitInputs[0].trim(), date);
+        Deadline addTask = new Deadline(taskDescription, date);
 
         storage.writeToStorage(addTask);
         tasks.addTask(addTask);
+        
         return ui.showTaskInput(addTask);
     }
 }

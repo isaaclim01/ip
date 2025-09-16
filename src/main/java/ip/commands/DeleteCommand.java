@@ -13,6 +13,8 @@ import ip.ui.Ui;
  * Command to delete task from TaskList based on index
  */
 public class DeleteCommand implements Command {
+    private static final String PREFIX = "delete ";
+    private static final int PREFIX_LENGTH = PREFIX.length();
     /**
      * @inheritDoc
      * @throws UnknownInputException if task does not exist or no index is given
@@ -22,20 +24,31 @@ public class DeleteCommand implements Command {
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
             UnknownInputException, FileCorruptedException, FileNotFoundException {
-        try {
-            String numberStr = input.substring(7).trim();
-            int number = Integer.parseInt(numberStr);
-            Task curr = tasks.get(number - 1);
-            tasks.remove(number - 1);
 
-            storage.rewriteStorage(tasks);
-
-            return ui.showDeleteCommand(curr, tasks.size());
-
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+        if (input.length() <= PREFIX_LENGTH) {
             throw new UnknownInputException("'delete' requires a number after");
-        } catch (IndexOutOfBoundsException e) {
+        }
+
+        String numberString = input.substring(PREFIX_LENGTH).trim();
+
+        boolean isValidNumber = NumberValidator.isValidNumber(numberString);
+
+        if (!isValidNumber) {
+            throw new UnknownInputException("'delete' requires a number after");
+        }
+
+        int index = Integer.parseInt(numberString);
+
+        if (index < 1 || index > tasks.size()) {
             throw new UnknownInputException("you can't delete a task that doesn't exist");
         }
+
+        Task curr = tasks.get(index - 1);
+        tasks.remove(index - 1);
+
+        storage.rewriteStorage(tasks);
+
+        return ui.showDeleteCommand(curr, tasks.size());
+
     }
 }

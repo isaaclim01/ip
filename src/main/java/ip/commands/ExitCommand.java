@@ -9,6 +9,7 @@ import ip.ui.Ui;
  * Command to exit application
  */
 public class ExitCommand implements Command {
+    private static final String KEYWORD = "bye";
 
     /**
      * @inheritDoc
@@ -17,7 +18,7 @@ public class ExitCommand implements Command {
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws UnknownInputException {
-        if (!input.equals("bye")) {
+        if (!input.equals(KEYWORD)) {
             throw new UnknownInputException("Just enter 'bye' by itself");
         }
 

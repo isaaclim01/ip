@@ -13,48 +13,53 @@ import ip.ui.Ui;
  * Command to add Event task to task list when given one as input
  */
 public class AddEventCommand implements Command {
+    private static final String PREFIX = "event ";
+    private static final int PREFIX_LENGTH = PREFIX.length();
+    private static final String PREFIX_TWO = "from  ";
+    private static final int PREFIX_TWO_LENGTH = PREFIX_TWO.length();
+    private static final String PREFIX_THREE = "to ";
+    private static final int PREFIX_THREE_LENGTH = PREFIX_THREE.length();
 
     /**
-     * @inheritDoc
      * @throws UnknownInputException if input is missing description, '/from' and '/to'
-     * or valid startDate and endDate
-     * Adds Event task into TaskList, appends task into data file and calls UI for response
+     *                               or valid startDate and endDate
+     *                               Adds Event task into TaskList, appends task into data file and calls UI for response
+     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
-                UnknownInputException, FileCorruptedException {
+            UnknownInputException, FileCorruptedException {
 
-        if (input.length() == 5) {
+        if (input.length() <= PREFIX_LENGTH) {
             throw new UnknownInputException("Your Event has to have a description!");
         }
 
-        if (!input.contains("/from") || !input.contains("/to")) {
+        if (!input.contains("/" + PREFIX_TWO) || !input.contains("/" + PREFIX_THREE)) {
             throw new UnknownInputException("Your Event has to have a duration inputted with '/from' and '/to'");
         }
 
-        String[] splitInput = input.substring(6).split("/");
+        String[] splitInputs = input.substring(PREFIX_LENGTH).split("/");
+        String taskDescription = splitInputs[0].trim();
 
-        if (splitInput[0].trim().isEmpty()) {
+        if (taskDescription.isEmpty()) {
             throw new UnknownInputException("Your Event has to have a description!");
         }
 
-        if (splitInput[1].startsWith("from ")) {
-            splitInput[1] = splitInput[1].substring(5);
-            if (splitInput[1].isEmpty()) {
-                throw new UnknownInputException("Your Event has to have a start date inputted with '/from'");
-            }
-        } else {
+        boolean hasNoStartDate = splitInputs[1].length() <= PREFIX_TWO_LENGTH;
+        boolean startHasIncorrectFormat = !splitInputs[1].startsWith(PREFIX_TWO);
+        boolean hasNoEndDate = splitInputs[2].length() <= PREFIX_THREE_LENGTH;
+        boolean endHasIncorrectFormat = !splitInputs[2].startsWith(PREFIX_THREE);
+
+        if (hasNoStartDate || startHasIncorrectFormat) {
             throw new UnknownInputException("Your Event has to have a start date inputted with '/from'");
         }
 
-        if (splitInput[2].startsWith("to ")) {
-            splitInput[2] = splitInput[2].substring(3);
-        } else {
+        if (hasNoEndDate || endHasIncorrectFormat) {
             throw new UnknownInputException("Your Event has to have a end date inputted with '/to'");
         }
 
-        String startDate = splitInput[1].trim();
-        String endDate = splitInput[2].trim();
+        String startDate = splitInputs[1].substring(PREFIX_TWO_LENGTH).trim();
+        String endDate = splitInputs[2].substring(PREFIX_THREE_LENGTH).trim();
         boolean startIsDate = DateValidator.isValidDate(startDate);
         boolean endIsDate = DateValidator.isValidDate(endDate);
 
@@ -65,7 +70,7 @@ public class AddEventCommand implements Command {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
 
-        Event addTask = new Event(splitInput[0].trim(), start, end);
+        Event addTask = new Event(taskDescription, start, end);
 
         storage.writeToStorage(addTask);
         tasks.addTask(addTask);

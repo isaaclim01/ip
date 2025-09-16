@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 /**
- * Class to check if user input is a valid date
+ * Class to check if String is a valid date
  */
 public class DateValidator {
 
