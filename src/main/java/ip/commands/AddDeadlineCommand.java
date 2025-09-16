@@ -55,6 +55,8 @@ public class AddDeadlineCommand implements Command {
 
         storage.writeToStorage(addTask);
         tasks.addTask(addTask);
+        assert tasks.contains(addTask) : "Task not added";
+
         return ui.showTaskInput(addTask);
     }
 }

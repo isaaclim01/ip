@@ -44,6 +44,8 @@ public class FindCommand implements Command {
             return ui.showNoResult(keyword);
         }
 
+        assert !results.isEmpty(): "Results is empty";
+
         return ui.showFindCommand(results);
 
     }
