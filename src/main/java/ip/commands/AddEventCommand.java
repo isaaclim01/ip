@@ -21,10 +21,10 @@ public class AddEventCommand implements Command {
     private static final int PREFIX_THREE_LENGTH = PREFIX_THREE.length();
 
     /**
+     * @inheritDoc
+     * Adds Event task into TaskList, appends task into data file and calls UI for response
      * @throws UnknownInputException if input is missing description, '/from' and '/to'
      *                               or valid startDate and endDate
-     *                               Adds Event task into TaskList, appends task into data file and calls UI for response
-     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
@@ -45,9 +45,6 @@ public class AddEventCommand implements Command {
             throw new UnknownInputException("Your Event has to have a description!");
         }
 
-        if (splitInput[1].startsWith("from ") && splitInput[1].length() > 5) {
-            splitInput[1] = splitInput[1].substring(5);
-        } else {
         boolean hasNoStartDate = splitInputs[1].length() <= PREFIX_TWO_LENGTH;
         boolean startHasIncorrectFormat = !splitInputs[1].startsWith(PREFIX_TWO);
         boolean hasNoEndDate = splitInputs[2].length() <= PREFIX_THREE_LENGTH;
@@ -57,9 +54,6 @@ public class AddEventCommand implements Command {
             throw new UnknownInputException("Your Event has to have a start date inputted with '/from'");
         }
 
-        if (splitInput[2].startsWith("to ") && splitInput[2].length() > 3) {
-            splitInput[2] = splitInput[2].substring(3);
-        } else {
         if (hasNoEndDate || endHasIncorrectFormat) {
             throw new UnknownInputException("Your Event has to have a end date inputted with '/to'");
         }

@@ -15,6 +15,7 @@ import ip.ui.Ui;
 public class DeleteCommand implements Command {
     private static final String PREFIX = "delete ";
     private static final int PREFIX_LENGTH = PREFIX.length();
+
     /**
      * @inheritDoc
      * @throws UnknownInputException if task does not exist or no index is given
@@ -43,20 +44,14 @@ public class DeleteCommand implements Command {
             throw new UnknownInputException("you can't delete a task that doesn't exist");
         }
 
+        int originalLength = tasks.size();
         Task curr = tasks.get(index - 1);
         tasks.remove(index - 1);
+        assert tasks.size() == originalLength - 1: "Task not deleted!";
 
-            assert tasks.size() == originalLength - 1: "Task not deleted!";
-
-            storage.rewriteStorage(tasks);
         storage.rewriteStorage(tasks);
 
         return ui.showDeleteCommand(curr, tasks.size());
 
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new UnknownInputException("'delete' requires a number after");
-        } catch (IndexOutOfBoundsException e) {
-            throw new UnknownInputException("you can't delete a task that doesn't exist");
-        }
     }
 }

@@ -20,8 +20,8 @@ public class AddDeadlineCommand implements Command {
 
     /**
      * @inheritDoc
-     * @throws UnknownInputException if input is missing description, '/by' or valid dueDate
      * Adds Deadline task into TaskList, appends task into data file and calls UI for response
+     * @throws UnknownInputException if input is missing description, '/by' or valid dueDate
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws

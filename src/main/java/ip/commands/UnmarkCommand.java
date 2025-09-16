@@ -47,6 +47,7 @@ public class UnmarkCommand implements Command {
         Task curr = tasks.get(index - 1);
         curr.setDone(false);
         storage.rewriteStorage(tasks);
+        assert curr.getStatusIcon().equals(" "): "Task marked done";
 
         return ui.showUnmark(curr);
     }

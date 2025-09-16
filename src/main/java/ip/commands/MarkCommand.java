@@ -47,6 +47,7 @@ public class MarkCommand implements Command {
         Task curr = tasks.get(index - 1);
         curr.setDone(true);
         storage.rewriteStorage(tasks);
+        assert curr.getStatusIcon().equals("X"): "Task not marked done";
 
         return ui.showMark(curr);
     }

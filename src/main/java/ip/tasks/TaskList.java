@@ -58,15 +58,19 @@ public class TaskList implements Iterable<Task> {
         return list.isEmpty();
     }
 
+
     /**
-     * @inheritDoc
+     * Checks if TaskList contains Task
+     * @param t Task to check
+     * @return true if contains task, false otherwise
      */
-    //Checks if list contains object
     public boolean contains(Task t) {
         return list.contains(t);
     }
 
-    //Performs given action for each element of task list
+    /**
+     * @inheritDoc
+     */
     @Override
     public void forEach(Consumer<? super Task> action) {
         list.forEach(action);
