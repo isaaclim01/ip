@@ -24,7 +24,4 @@ public interface Storage {
 
     //Load data file into list
     void loadFile(TaskList tasks) throws FileNotFoundException, FileCorruptedException;
-
-    //Remakes file if corrupted
-    boolean remakeFile();
 }

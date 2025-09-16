@@ -11,7 +11,6 @@ public enum CommandType {
     TODO("todo", new AddToDoCommand()),
     DEADLINE("deadline", new AddDeadlineCommand()),
     EVENT("event", new AddEventCommand()),
-    TEST("test", new TestCommand()),
     DELETE("delete", new DeleteCommand()),
     EXIT("bye", new ExitCommand()),
     FIND("find", new FindCommand());

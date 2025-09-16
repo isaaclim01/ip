@@ -1,40 +1,53 @@
 package ip.tasks;
 
+/**
+ * Represents a task which has a description and
+ * a record of completion
+ */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    public void setDone(boolean done) {
+        this.isDone = done;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    /**
+     * Returns the status icon of the task based
+     * on isDone
+     * @return "X" if done, " " if not done
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void unmarkDone() {
-        this.isDone = false;
-    }
-
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
-    public String toDataString() {
-        int isDoneInt;
-        if (isDone) {
-            isDoneInt = 1;
-        } else {
-            isDoneInt = 0;
-        }
-        return String.format("* / %d / %s", isDoneInt, description);
+    public void setDescription(String description) {
+        this.description = description;
     }
 
+    /**
+     * Formats the task into a String to be stored in the
+     * data file
+     * @return "Task type (1 char) / done (1 or 0) / description"
+     */
+    public abstract String toDataString();
+
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);

@@ -3,9 +3,12 @@ package ip.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a start date and end date
+ */
 public class Event extends Task {
-    protected LocalDate startDate;
-    protected LocalDate endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
@@ -21,17 +24,31 @@ public class Event extends Task {
         return this.endDate;
     }
 
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toDataString() {
         int isDoneInt;
-        if (isDone) {
+        if (super.getIsDone()) {
             isDoneInt = 1;
         } else {
             isDoneInt = 0;
         }
-        return String.format("E / %d / %s / %s / %s", isDoneInt, description, startDate, endDate);
+        return String.format("E / %d / %s / %s / %s", isDoneInt, super.getDescription(), startDate, endDate);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
 

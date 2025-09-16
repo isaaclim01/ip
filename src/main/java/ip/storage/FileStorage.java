@@ -14,6 +14,9 @@ import ip.tasks.Task;
 import ip.tasks.TaskList;
 import ip.tasks.ToDo;
 
+/**
+ * Class to implement a storage through an external text file
+ */
 public class FileStorage implements Storage {
 
     private final File folder;
@@ -37,60 +40,57 @@ public class FileStorage implements Storage {
         return folder;
     }
 
-    //Check if the folder exists
-    public boolean checkFolder() {
+    /**
+     * Checks if a folder exists
+     * @return True if folder exists, false otherwise
+     */
+    private boolean checkFolderExists() {
         return folder.exists();
     }
 
-    //Check if the file exists
-    public boolean checkFileExists() {
+    /**
+     * Checks if a file exists
+     * @return True if file exists, false otherwise
+     */
+    private boolean checkFileExists() {
         return data.exists();
     }
 
-    //Create new folder
-    public void createFolder() {
+    /**
+     * Creates new folder if it does not exist
+     */
+    private void createFolder() {
         try {
-            if (folder.mkdir()) {
-                System.out.println("Folder created: " + folder.getName());
-            } else {
-                System.out.println("Folder already created: "
-                        + folder.getAbsolutePath());
-            }
+            boolean isCreated = folder.mkdir();
+
+            assert isCreated: "Unable to create folder";
+
         } catch (SecurityException e) {
-            System.out.println("ERROR ERROR: " + e.getMessage());
+            e.printStackTrace();
+            assert false: "Security exception";
         }
     }
 
-    //Create new data file
-    public void createFile() {
+    /**
+     * Creates new data file if it does not exist
+     */
+    private void createFile() {
         try {
-            if (data.createNewFile()) {
-                System.out.println("File created: " + data.getName());
-            } else {
-                System.out.println("File already created: "
-                        + data.getAbsolutePath());
-            }
+            boolean isCreated = data.createNewFile();
+
+            assert isCreated: "Unable to create file";
         } catch (IOException e) {
-            System.out.println("ERROR ERROR: " + e.getMessage());
+            e.printStackTrace();
+            assert false: "IO exception";
         }
     }
 
-    //Remakes file if corrupted
-    @Override
-    public boolean remakeFile() {
-        try {
-            FileWriter writer = new FileWriter(data);
-            String dataString = "";
-            writer.write(dataString);
-            writer.close();
-            return true;
-
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    //Load data file into list
+    /**
+     * Loads the data file into given TaskList
+     * @param tasks TaskList to be input into
+     * @throws FileNotFoundException If data file does not exist
+     * @throws FileCorruptedException If formatting of data file is wrong
+     */
     @Override
     public void loadFile(TaskList tasks) throws FileNotFoundException, FileCorruptedException {
 
@@ -121,7 +121,7 @@ public class FileStorage implements Storage {
                 }
 
                 if (splitCurr[1].trim().equals("1")) {
-                    task.markDone();
+                    task.setDone(true);
                 }
 
                 tasks.addTask(task);
@@ -132,7 +132,11 @@ public class FileStorage implements Storage {
         }
     }
 
-    //Appends into data file
+    /**
+     * Appends task into data file
+     * @param task Task to be stored
+     * @throws FileCorruptedException If FileWriter is unable to write into file
+     */
     @Override
     public void writeToStorage(Task task) throws FileCorruptedException {
         try {
@@ -147,7 +151,11 @@ public class FileStorage implements Storage {
         }
     }
 
-    //Rewrite data file based on tasks list
+    /**
+     * Rewrites entire data file according to TaskList
+     * @param tasks TaskList to be stored
+     * @throws FileCorruptedException If FileWriter is unable to write into file
+     */
     @Override
     public void rewriteStorage(TaskList tasks) throws FileCorruptedException {
         try {
@@ -167,10 +175,12 @@ public class FileStorage implements Storage {
     }
 
 
-    //Check and create folder and file if they do not exist
+    /**
+     * Checks and then creates File and Folder if they do not exist
+     */
     @Override
     public void start() {
-        if (checkFolder()) {
+        if (checkFolderExists()) {
             System.out.println("Folder loaded");
         } else {
             createFolder();

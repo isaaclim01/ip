@@ -12,9 +12,11 @@ import ip.tasks.TaskList;
 import ip.ui.ErrorHandler;
 import ip.ui.Ui;
 
+/**
+ * Represents the chatbot answering the user's
+ * queries
+ */
 public class Squiddy {
-
-    private static boolean isTestMode = false;
 
     private final Ui ui;
     private final Storage storage;
@@ -36,15 +38,11 @@ public class Squiddy {
         this.tasks = new TaskList();
     }
 
-    public static void setIsTestMode() {
-        isTestMode = !isTestMode;
-    }
-
-    public static boolean getIsTestMode() {
-        return isTestMode;
-    }
-
-    //Starts up by loading storage
+    /**
+     * Starts up by loading storage
+     * @throws FileNotFoundException If task file cannot be found
+     * @throws FileCorruptedException If task file is corrupted
+     */
     public void start() throws FileNotFoundException, FileCorruptedException{
         storage.start();
         storage.loadFile(tasks);
@@ -78,5 +76,13 @@ public class Squiddy {
             }
         }
         return "";
+    }
+
+    /**
+     * Returns the welcome message
+     * @return Welcome message
+     */
+    public String getWelcomeMsg() {
+        return ui.showWelcomeMsg();
     }
 }

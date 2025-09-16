@@ -12,6 +12,7 @@ import ip.ui.Ui;
  * Command to display TaskList
  */
 public class ListCommand implements Command {
+    private static final String KEYWORD = "list";
 
     /**
      * @inheritDoc
@@ -22,7 +23,7 @@ public class ListCommand implements Command {
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileCorruptedException, FileNotFoundException {
 
-        if (!input.equals("list")) {
+        if (!input.equals(KEYWORD)) {
             throw new UnknownInputException("Just enter 'list' by itself");
         }
 

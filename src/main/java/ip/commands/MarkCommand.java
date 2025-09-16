@@ -13,6 +13,8 @@ import ip.ui.Ui;
  * Command to mark task as done
  */
 public class MarkCommand implements Command {
+    private static final String PREFIX = "mark ";
+    private static final int PREFIX_LENGTH = PREFIX.length();
 
     /**
      * @inheritDoc
@@ -23,20 +25,30 @@ public class MarkCommand implements Command {
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
             UnknownInputException, FileCorruptedException, FileNotFoundException {
-        try {
-            String numberStr = input.substring(5).trim();
-            int number = Integer.parseInt(numberStr);
-            Task curr = tasks.get(number - 1);
-            curr.markDone();
-            storage.rewriteStorage(tasks);
-            assert curr.getStatusIcon().equals("X"): "Task should be done";
 
-            return ui.showMark(curr);
-
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+        if (input.length() <= PREFIX_LENGTH) {
             throw new UnknownInputException("'mark' requires a number after");
-        } catch (NullPointerException e) {
+        }
+
+        String numberString = input.substring(PREFIX_LENGTH).trim();
+
+        boolean isValidNumber = NumberValidator.isValidNumber(numberString);
+
+        if (!isValidNumber) {
+            throw new UnknownInputException("'mark' requires a number after");
+        }
+
+        int index = Integer.parseInt(numberString);
+
+        if (index < 1 || index > tasks.size()) {
             throw new UnknownInputException("you can't mark a task that doesn't exist");
         }
+
+        Task curr = tasks.get(index - 1);
+        curr.setDone(true);
+        storage.rewriteStorage(tasks);
+        assert curr.getStatusIcon().equals("X"): "Task not marked done";
+
+        return ui.showMark(curr);
     }
 }

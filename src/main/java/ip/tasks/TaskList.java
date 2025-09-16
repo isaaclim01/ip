@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+/**
+ * Represents the List of tasks
+ */
 public class TaskList implements Iterable<Task> {
 
     private final ArrayList<Task> list;
@@ -13,47 +16,77 @@ public class TaskList implements Iterable<Task> {
         list = new ArrayList<>();
     }
 
-    //Adds task to the task list
+    /**
+     * Adds a task to the TaskList
+     * @param task Task to be added
+     */
     public void addTask(Task task) {
         list.add(task);
     }
 
-    //Returns size of the task list
+    /**
+     * Returns the size of the TaskList
+     * @return number of tasks in TaskList
+     */
     public int size() {
         return list.size();
     }
 
-    //Removes task from task list
+    /**
+     * Removes a task from the TaskList
+     * @param index Index of task to be removed
+     */
     public void remove(int index) {
         list.remove(index);
     }
 
-    //Gets task from task list
+    /**
+     * Returns a task in the TaskList based on
+     * its index
+     * @param index Index of task
+     * @return Task with that index
+     */
     public Task get(int index) {
         return list.get(index);
     }
 
-    //Checks if list is empty
+    /**
+     * Checks if TaskList is empty
+     * @return true if empty, false otherwise
+     */
     public boolean isEmpty() {
         return list.isEmpty();
     }
 
-    //Checks if list contains object
+
+    /**
+     * Checks if TaskList contains Task
+     * @param t Task to check
+     * @return true if contains task, false otherwise
+     */
     public boolean contains(Task t) {
         return list.contains(t);
     }
 
-    //Performs given action for each element of task list
+    /**
+     * @inheritDoc
+     */
     @Override
     public void forEach(Consumer<? super Task> action) {
         list.forEach(action);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Iterator<Task> iterator() {
         return list.iterator();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Spliterator<Task> spliterator() {
         return list.spliterator();

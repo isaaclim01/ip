@@ -11,19 +11,23 @@ import ip.ui.Ui;
  * Command to add Todo task to task list when given one as input
  */
 public class AddToDoCommand implements Command {
+    private static final String PREFIX = "todo ";
+    private static final int PREFIX_LENGTH = PREFIX.length();
 
     /**
      * @inheritDoc
-     * @throws UnknownInputException if input is missing description
      * Adds ToDo Task into TaskList, appends task into data file and calls UI for response
+     * @throws UnknownInputException if input is missing description
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
             UnknownInputException, FileCorruptedException {
-        if (input.length() == 4 || input.substring(5).trim().isEmpty()) {
+        if (input.length() <= PREFIX_LENGTH) {
             throw new UnknownInputException("Your ToDo has to have a description!");
         }
-        ToDo addTask = new ToDo(input.substring(5).trim());
+        String taskDescription = input.substring(PREFIX_LENGTH).trim();
+
+        ToDo addTask = new ToDo(taskDescription);
         assert !addTask.getDescription().isEmpty(): "ToDo has no description";
 
         storage.writeToStorage(addTask);
