@@ -48,7 +48,7 @@ public class AddDeadlineCommand implements Command {
         if (hasNoDueDate || hasIncorrectFormat) {
             throw new UnknownInputException("Your Deadline has to have a due date inputted with '/by'");
         }
-        
+
         String dueDate = splitInputs[1].substring(PREFIX_TWO_LENGTH).trim();
         boolean isDate = DateValidator.isValidDate(dueDate);
 
@@ -61,7 +61,8 @@ public class AddDeadlineCommand implements Command {
 
         storage.writeToStorage(addTask);
         tasks.addTask(addTask);
-        
+        assert tasks.contains(addTask) : "Task not added";
+
         return ui.showTaskInput(addTask);
     }
 }

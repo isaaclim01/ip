@@ -28,9 +28,12 @@ public class AddToDoCommand implements Command {
         String taskDescription = input.substring(PREFIX_LENGTH).trim();
 
         ToDo addTask = new ToDo(taskDescription);
+        ToDo addTask = new ToDo(input.substring(5).trim());
+        assert !addTask.getDescription().isEmpty(): "ToDo has no description";
 
         storage.writeToStorage(addTask);
         tasks.addTask(addTask);
+        assert tasks.contains(addTask): "Task not added";
 
         return ui.showTaskInput(addTask);
     }

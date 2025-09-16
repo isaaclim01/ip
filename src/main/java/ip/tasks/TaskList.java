@@ -61,6 +61,12 @@ public class TaskList implements Iterable<Task> {
     /**
      * @inheritDoc
      */
+    //Checks if list contains object
+    public boolean contains(Task t) {
+        return list.contains(t);
+    }
+
+    //Performs given action for each element of task list
     @Override
     public void forEach(Consumer<? super Task> action) {
         list.forEach(action);

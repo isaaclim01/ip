@@ -46,9 +46,17 @@ public class DeleteCommand implements Command {
         Task curr = tasks.get(index - 1);
         tasks.remove(index - 1);
 
+            assert tasks.size() == originalLength - 1: "Task not deleted!";
+
+            storage.rewriteStorage(tasks);
         storage.rewriteStorage(tasks);
 
         return ui.showDeleteCommand(curr, tasks.size());
 
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            throw new UnknownInputException("'delete' requires a number after");
+        } catch (IndexOutOfBoundsException e) {
+            throw new UnknownInputException("you can't delete a task that doesn't exist");
+        }
     }
 }
