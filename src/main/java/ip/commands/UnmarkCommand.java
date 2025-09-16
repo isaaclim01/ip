@@ -29,6 +29,7 @@ public class UnmarkCommand implements Command {
             Task curr = tasks.get(number - 1);
             curr.unmarkDone();
             storage.rewriteStorage(tasks);
+            assert curr.getStatusIcon().equals(" "): "Task should be undone";
 
             return ui.showUnmark(curr);
 

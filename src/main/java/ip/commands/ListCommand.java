@@ -30,6 +30,8 @@ public class ListCommand implements Command {
             throw new UnknownInputException("your list is empty");
         }
 
+        assert !tasks.isEmpty(): "TaskList is empty";
+
         return ui.showListCommand(tasks);
     }
 }

@@ -24,9 +24,12 @@ public class AddToDoCommand implements Command {
             throw new UnknownInputException("Your ToDo has to have a description!");
         }
         ToDo addTask = new ToDo(input.substring(5).trim());
+        assert !addTask.getDescription().isEmpty(): "ToDo has no description";
 
         storage.writeToStorage(addTask);
         tasks.addTask(addTask);
+        assert tasks.contains(addTask): "Task not added";
+
         return ui.showTaskInput(addTask);
     }
 }

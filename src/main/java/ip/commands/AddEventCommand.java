@@ -38,16 +38,13 @@ public class AddEventCommand implements Command {
             throw new UnknownInputException("Your Event has to have a description!");
         }
 
-        if (splitInput[1].startsWith("from ")) {
+        if (splitInput[1].startsWith("from ") && splitInput[1].length() > 5) {
             splitInput[1] = splitInput[1].substring(5);
-            if (splitInput[1].isEmpty()) {
-                throw new UnknownInputException("Your Event has to have a start date inputted with '/from'");
-            }
         } else {
             throw new UnknownInputException("Your Event has to have a start date inputted with '/from'");
         }
 
-        if (splitInput[2].startsWith("to ")) {
+        if (splitInput[2].startsWith("to ") && splitInput[2].length() > 3) {
             splitInput[2] = splitInput[2].substring(3);
         } else {
             throw new UnknownInputException("Your Event has to have a end date inputted with '/to'");
@@ -62,6 +59,8 @@ public class AddEventCommand implements Command {
             throw new UnknownInputException("Your Event has to have start and end dates with format yyyy-mm-dd");
         }
 
+        assert startIsDate && endIsDate : "Start date or end date is not valid";
+
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
 
@@ -69,6 +68,8 @@ public class AddEventCommand implements Command {
 
         storage.writeToStorage(addTask);
         tasks.addTask(addTask);
+        assert tasks.contains(addTask): "Task not added";
+
         return ui.showTaskInput(addTask);
 
     }

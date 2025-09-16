@@ -36,13 +36,7 @@ public enum CommandType {
         }
 
         for (CommandType type : values()) {
-            if (input.equals(type.keyword)) {
-                return type;
-            }
-        }
-
-        for (CommandType type : values()) {
-            if (input.startsWith(type.keyword + " ")) {
+            if (input.equals(type.keyword) || input.startsWith(type.keyword + " ")) {
                 return type;
             }
         }

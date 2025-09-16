@@ -23,10 +23,13 @@ public class DeleteCommand implements Command {
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
             UnknownInputException, FileCorruptedException, FileNotFoundException {
         try {
+            int originalLength = tasks.size();
             String numberStr = input.substring(7).trim();
             int number = Integer.parseInt(numberStr);
             Task curr = tasks.get(number - 1);
             tasks.remove(number - 1);
+
+            assert tasks.size() == originalLength - 1: "Task not deleted!";
 
             storage.rewriteStorage(tasks);
 
