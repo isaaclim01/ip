@@ -13,7 +13,8 @@ public enum CommandType {
     EVENT("event", new AddEventCommand()),
     DELETE("delete", new DeleteCommand()),
     EXIT("bye", new ExitCommand()),
-    FIND("find", new FindCommand());
+    FIND("find", new FindCommand()),
+    SNOOZE("snooze", new SnoozeCommand());
 
     private final String keyword;
     private final Command command;

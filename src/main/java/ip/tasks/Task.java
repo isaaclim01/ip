@@ -1,5 +1,7 @@
 package ip.tasks;
 
+import ip.exceptions.UnknownInputException;
+
 /**
  * Represents a task which has a description and
  * a record of completion
@@ -44,6 +46,11 @@ public abstract class Task {
      * @return "Task type (1 char) / done (1 or 0) / description"
      */
     public abstract String toDataString();
+
+    /**
+     * Snoozes a task based on the input
+     */
+    public abstract void snooze(String[] splitInputs) throws UnknownInputException;
 
     /**
      * @inheritDoc

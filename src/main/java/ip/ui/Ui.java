@@ -16,8 +16,8 @@ public class Ui {
      * @return The welcome message
      */
     public String showWelcomeMsg() {
-        return "I'm Squiddy, forced to be text in your terminal. "
-                + "\nType a task and I'll decide if I want to help you remember it";
+        return "I'm Squiddy, forced to be text in your terminal.\n"
+                + "Type a task and I'll decide if I want to help you remember it";
     }
 
     /**
@@ -177,7 +177,17 @@ public class Ui {
      * @return Message asking the user to try again
      */
     public String showNoResult(String keyword) {
-        String title = String.format("There are no tasks containing '%s'", keyword);
-        return title + "\nSearch using a better keyword";
+        String title = String.format("There are no tasks containing '%s' \n", keyword);
+        return title + "Search using a better keyword";
+    }
+
+    /**
+     * Shows a message after task is snoozed
+     * @param task Task snoozed
+     * @return Message showing the task snoozed
+     */
+    public String showTaskSnoozed(Task task) {
+        String title = "Alright this task has been snoozed: \n";
+        return title + showTaskDetails(task);
     }
 }
