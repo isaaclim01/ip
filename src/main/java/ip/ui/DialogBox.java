@@ -1,7 +1,6 @@
 package ip.ui;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -36,6 +36,24 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        makeImageCircular(displayPicture);
+    }
+
+    private void makeImageCircular(ImageView imageView) {
+        // Set clip to make it circular
+        Circle clip = new Circle();
+        clip.radiusProperty().bind(imageView.fitWidthProperty().divide(2));
+        clip.centerXProperty().bind(imageView.fitWidthProperty().divide(2));
+        clip.centerYProperty().bind(imageView.fitHeightProperty().divide(2));
+
+        imageView.setClip(clip);
+        imageView.getStyleClass().add("circular-image");
+
+        // Set appropriate size
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        imageView.setPreserveRatio(true);
     }
 
     /**
