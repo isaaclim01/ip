@@ -23,8 +23,11 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Squiddy");
+
             squiddy.setIsExit(false);
             squiddy.start();
             fxmlLoader.<MainWindow>getController().setSquiddy(squiddy);  // inject the Squiddy instance

@@ -23,17 +23,42 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DefaultUser.jpg"));
-    private Image squiddyImage = new Image(this.getClass().getResourceAsStream("/images/Squiddy.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DefaultUser.jpg"),
+            80, 80, true, true);
+    private Image squiddyImage = new Image(this.getClass().getResourceAsStream("/images/Squiddy.jpg"),
+            80, 80, true, true);
 
     private Squiddy squiddy = new Squiddy();
 
+    //Used Deepseek to add scrolling
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Use this instead of binding for better control
+        dialogContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
+            Platform.runLater(() -> {
+                scrollPane.setVvalue(1.0);
+            });
+        });
+
+        // Enable mouse wheel scrolling
+        dialogContainer.setOnScroll(event -> {
+            double deltaY = event.getDeltaY();
+            if (deltaY != 0) {
+                double current = scrollPane.getVvalue();
+                scrollPane.setVvalue(current - deltaY / scrollPane.getHeight());
+            }
+        });
+
+        // Make scroll pane focusable
+        scrollPane.setFocusTraversable(true);
+
+        // Add initial content
         dialogContainer.getChildren().add(
                 DialogBox.getSquiddyDialog(squiddy.getWelcomeMsg(), squiddyImage)
         );
+
+        // Request focus after UI is shown
+        Platform.runLater(() -> scrollPane.requestFocus());
     }
 
     public void setSquiddy(Squiddy s) {
