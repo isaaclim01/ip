@@ -27,7 +27,10 @@ public interface Command {
     String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
                 UnknownInputException, FileNotFoundException, FileCorruptedException;
 
-    //Checks if command is an exit command
+    /**
+     * Checks if command is an exit command
+     * @return true only for exit command
+     */
     default boolean isExit() {
         return false;
     }

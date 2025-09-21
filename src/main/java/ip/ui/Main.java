@@ -26,7 +26,6 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             squiddy.setIsExit(false);
-            //The error handling does not work for this line
             squiddy.start();
             fxmlLoader.<MainWindow>getController().setSquiddy(squiddy);  // inject the Squiddy instance
             stage.show();

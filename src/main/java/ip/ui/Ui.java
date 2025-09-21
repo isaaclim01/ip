@@ -115,13 +115,13 @@ public class Ui {
      * @return List of all tasks in TaskList
      */
     public String showListCommand(TaskList tasks) {
-        String title = "Let's see what you've got: ";
+        String title = "Let's see what you've got:\n";
         StringBuilder message = new StringBuilder(title);
 
         int max = tasks.size();
         for (int i = 0; i < max; i++) {
             Task curr = tasks.get(i);
-            String result = "\n" + showListContent(curr, i + 1);
+            String result = showListContent(curr, i + 1);
             message.append(result);
         }
         return message.toString();
@@ -161,11 +161,11 @@ public class Ui {
      * @return List of all the task that match the search
      */
     public String showFindCommand(TaskList results) {
-        String title = String.format("I found %d tasks:", results.size());
+        String title = String.format("I found %d tasks:\n", results.size());
         StringBuilder message = new StringBuilder(title);
         int index = 1;
         for (Task task : results) {
-            String result = "\n" + showListContent(task, index++);
+            String result = showListContent(task, index++);
             message.append(result);
         }
         return message.toString();

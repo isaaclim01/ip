@@ -90,45 +90,68 @@ public class FileStorage implements Storage {
      * @param tasks TaskList to be input into
      * @throws FileNotFoundException If data file does not exist
      * @throws FileCorruptedException If formatting of data file is wrong
+     * Used Deepseek to shorten this method
      */
     @Override
     public void loadFile(TaskList tasks) throws FileNotFoundException, FileCorruptedException {
-
         Scanner s = new Scanner(data);
-
         int count = 1;
 
         while (s.hasNext()) {
             try {
                 String curr = s.nextLine();
-                String[] splitCurr = curr.split("/");
-                Task task;
-
-                switch (splitCurr[0].trim()) {
-                case "T":
-                    task = new ToDo(splitCurr[2].trim());
-                    break;
-                case "D":
-                    task = new Deadline(splitCurr[2].trim(), LocalDate.parse(splitCurr[3].trim()));
-                    break;
-                case "E":
-                    task = new Event(splitCurr[2].trim(),
-                            LocalDate.parse(splitCurr[3].trim()), LocalDate.parse(splitCurr[4].trim()));
-                    break;
-                default:
-                    String err = String.format("Task %d does not have valid type", count);
-                    throw new FileCorruptedException(err);
-                }
-
-                if (splitCurr[1].trim().equals("1")) {
-                    task.setDone(true);
-                }
-
+                Task task = createTaskFromLine(curr, count);
+                setTaskCompletionStatus(curr, task, count);
                 tasks.addTask(task);
-
+                count++;
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new FileCorruptedException(e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Creates a task from String in data file
+     * @param line String in data file
+     * @param lineNumber index of task
+     * @return Task created
+     * @throws FileCorruptedException if Task type is not valid
+     */
+    private Task createTaskFromLine(String line, int lineNumber) throws FileCorruptedException {
+        String[] splitCurr = line.split("/");
+        String taskType = splitCurr[0].trim();
+        String description = splitCurr[2].trim();
+
+        switch (taskType) {
+        case "T":
+            return new ToDo(description);
+        case "D":
+            return new Deadline(description, LocalDate.parse(splitCurr[3].trim()));
+        case "E":
+            return new Event(description, LocalDate.parse(splitCurr[3].trim()),
+                    LocalDate.parse(splitCurr[4].trim()));
+        default:
+            String err = String.format("Task %d does not have valid type", lineNumber);
+            throw new FileCorruptedException(err);
+        }
+    }
+
+    /**
+     * Sets the completion status of task based on String in data file
+     * @param line String in data file
+     * @param task Task created based on String
+     * @param lineNumber Index of task
+     * @throws FileCorruptedException if completion status is not valid
+     */
+    private void setTaskCompletionStatus(String line, Task task, int lineNumber) throws FileCorruptedException{
+        String[] splitCurr = line.split("/");
+        if (splitCurr[1].trim().equals("1")) {
+            task.setDone(true);
+        } else if (splitCurr[1].trim().equals("0")) {
+            task.setDone(false);
+        } else {
+            String err = String.format("Task %d does not have valid completion status", lineNumber);
+            throw new FileCorruptedException(err);
         }
     }
 

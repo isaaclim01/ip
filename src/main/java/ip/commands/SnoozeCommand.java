@@ -16,6 +16,10 @@ public class SnoozeCommand implements Command{
 
     /**
      * @inheritDoc
+     * Snoozes a deadline or event task by changing the due date or start and end date
+     * to a new one specified by user
+     * @throws UnknownInputException if input is missing the task index, is a todo task
+     * or missing the correct format for deadline / event task
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
