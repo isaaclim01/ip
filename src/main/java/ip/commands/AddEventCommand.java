@@ -15,7 +15,7 @@ import ip.ui.Ui;
 public class AddEventCommand implements Command {
     private static final String PREFIX = "event ";
     private static final int PREFIX_LENGTH = PREFIX.length();
-    private static final String PREFIX_TWO = "from  ";
+    private static final String PREFIX_TWO = "from ";
     private static final int PREFIX_TWO_LENGTH = PREFIX_TWO.length();
     private static final String PREFIX_THREE = "to ";
     private static final int PREFIX_THREE_LENGTH = PREFIX_THREE.length();
@@ -32,7 +32,6 @@ public class AddEventCommand implements Command {
             UnknownInputException, FileCorruptedException {
 
         validateInputLength(input);
-        validatePrefixPresence(input);
 
         String[] splitInputs = input.substring(PREFIX_LENGTH).split("/");
         String taskDescription = validateAndGetDescription(splitInputs);
@@ -56,12 +55,6 @@ public class AddEventCommand implements Command {
     private void validateInputLength(String input) throws UnknownInputException {
         if (input.length() <= PREFIX_LENGTH) {
             throw new UnknownInputException("Your Event has to have a description!");
-        }
-    }
-
-    private void validatePrefixPresence(String input) throws UnknownInputException {
-        if (!input.contains("/" + PREFIX_TWO) || !input.contains("/" + PREFIX_THREE)) {
-            throw new UnknownInputException("Your Event has to have a duration inputted with '/from' and '/to'");
         }
     }
 

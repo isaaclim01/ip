@@ -13,7 +13,7 @@ public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private static final String PREFIX_TWO = "from  ";
+    private static final String PREFIX_TWO = "from ";
     private static final int PREFIX_TWO_LENGTH = PREFIX_TWO.length();
     private static final String PREFIX_THREE = "to ";
     private static final int PREFIX_THREE_LENGTH = PREFIX_THREE.length();
