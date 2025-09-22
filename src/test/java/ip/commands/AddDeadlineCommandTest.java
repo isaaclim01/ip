@@ -1,5 +1,12 @@
 package ip.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.storage.Storage;
@@ -8,12 +15,6 @@ import ip.tasks.Deadline;
 import ip.tasks.Task;
 import ip.tasks.TaskList;
 import ip.ui.Ui;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class AddDeadlineCommandTest {
     @Test

@@ -1,5 +1,10 @@
 package ip.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import ip.exceptions.FileCorruptedException;
 import ip.exceptions.UnknownInputException;
 import ip.storage.Storage;
@@ -8,10 +13,6 @@ import ip.tasks.Task;
 import ip.tasks.TaskList;
 import ip.tasks.ToDo;
 import ip.ui.Ui;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class AddToDoCommandTest {
     @Test

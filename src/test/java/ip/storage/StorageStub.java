@@ -1,10 +1,10 @@
 package ip.storage;
 
+import java.io.FileNotFoundException;
+
 import ip.exceptions.FileCorruptedException;
 import ip.tasks.Task;
 import ip.tasks.TaskList;
-
-import java.io.FileNotFoundException;
 
 public class StorageStub implements Storage {
 
