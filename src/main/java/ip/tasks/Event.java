@@ -10,14 +10,22 @@ import ip.exceptions.UnknownInputException;
  * Represents a task with a start date and end date
  */
 public class Event extends Task {
-    private LocalDate startDate;
-    private LocalDate endDate;
 
     private static final String PREFIX_TWO = "from ";
     private static final int PREFIX_TWO_LENGTH = PREFIX_TWO.length();
     private static final String PREFIX_THREE = "to ";
     private static final int PREFIX_THREE_LENGTH = PREFIX_THREE.length();
 
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    /**
+     * Constructor for Event task
+     *
+     * @param description Task description
+     * @param startDate   Start date of the event
+     * @param endDate     End date of the event
+     */
     public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;

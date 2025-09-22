@@ -10,6 +10,11 @@ public abstract class Task {
     private String description;
     private boolean isDone;
 
+    /**
+     * Constructor for a task
+     *
+     * @param description Task description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -26,6 +31,7 @@ public abstract class Task {
     /**
      * Returns the status icon of the task based
      * on isDone
+     *
      * @return "X" if done, " " if not done
      */
     public String getStatusIcon() {
@@ -43,6 +49,7 @@ public abstract class Task {
     /**
      * Formats the task into a String to be stored in the
      * data file
+     *
      * @return "Task type (1 char) / done (1 or 0) / description"
      */
     public abstract String toDataString();

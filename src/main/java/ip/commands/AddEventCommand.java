@@ -21,11 +21,12 @@ public class AddEventCommand implements Command {
     private static final int PREFIX_THREE_LENGTH = PREFIX_THREE.length();
 
     /**
-     * @inheritDoc
      * Adds Event task into TaskList, appends task into data file and calls UI for response
+     *
      * @throws UnknownInputException if input is missing description, '/from' and '/to'
      *                               or valid startDate and endDate
-     * Used Deepseek to split up this method into smaller methods
+     *                               Used Deepseek to split up this method into smaller methods
+     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
@@ -47,7 +48,7 @@ public class AddEventCommand implements Command {
 
         storage.writeToStorage(addTask);
         tasks.addTask(addTask);
-        assert tasks.contains(addTask): "Task not added";
+        assert tasks.contains(addTask) : "Task not added";
 
         return ui.showTaskInput(addTask);
     }

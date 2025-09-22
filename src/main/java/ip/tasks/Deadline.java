@@ -11,10 +11,17 @@ import ip.exceptions.UnknownInputException;
  */
 public class Deadline extends Task {
 
-    private LocalDate dueDate;
     private static final String PREFIX_TWO = "by ";
     private static final int PREFIX_TWO_LENGTH = PREFIX_TWO.length();
 
+    private LocalDate dueDate;
+
+    /**
+     * Constructor for a Deadline task
+     *
+     * @param description Description of task
+     * @param dueDate     Due date of task
+     */
     public Deadline(String description, LocalDate dueDate) {
         super(description);
         this.dueDate = dueDate;

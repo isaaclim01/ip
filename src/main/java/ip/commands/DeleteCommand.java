@@ -17,10 +17,11 @@ public class DeleteCommand implements Command {
     private static final int PREFIX_LENGTH = PREFIX.length();
 
     /**
-     * @inheritDoc
-     * @throws UnknownInputException if task does not exist or no index is given
      * Deletes task from TaskList based on index displayed on UI
      * Rewrites data file with updated TaskList and calls UI
+     *
+     * @throws UnknownInputException if task does not exist or no index is given
+     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
@@ -47,7 +48,7 @@ public class DeleteCommand implements Command {
         int originalLength = tasks.size();
         Task curr = tasks.get(index - 1);
         tasks.remove(index - 1);
-        assert tasks.size() == originalLength - 1: "Task not deleted!";
+        assert tasks.size() == originalLength - 1 : "Task not deleted!";
 
         storage.rewriteStorage(tasks);
 

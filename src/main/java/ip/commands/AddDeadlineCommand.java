@@ -19,10 +19,11 @@ public class AddDeadlineCommand implements Command {
     private static final int PREFIX_TWO_LENGTH = PREFIX_TWO.length();
 
     /**
-     * @inheritDoc
      * Adds Deadline task into TaskList, appends task into data file and calls UI for response
+     *
      * @throws UnknownInputException if input is missing description, '/by' or valid dueDate
-     * Used Deepseek to split up my original execute method into shorter methods
+     *                               Used Deepseek to split up my original execute method into shorter methods
+     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws
@@ -49,6 +50,7 @@ public class AddDeadlineCommand implements Command {
 
     /**
      * Checks if input has a description
+     *
      * @param input User input
      * @throws UnknownInputException if input is just 'deadline'
      */
@@ -60,6 +62,7 @@ public class AddDeadlineCommand implements Command {
 
     /**
      * Checks if input has '/by'
+     *
      * @param input User input
      * @throws UnknownInputException if input does not contain '/by'
      */
@@ -71,6 +74,7 @@ public class AddDeadlineCommand implements Command {
 
     /**
      * Checks if input contains task description
+     *
      * @param splitInputs User input split by "/"
      * @return task description if it exists
      * @throws UnknownInputException if there is no task description
@@ -85,6 +89,7 @@ public class AddDeadlineCommand implements Command {
 
     /**
      * Checks if user has input a due date
+     *
      * @param splitInputs User input split by "/"
      * @return Due date if valid
      * @throws UnknownInputException if no due date or second half of input does not start with '/by'
@@ -102,6 +107,7 @@ public class AddDeadlineCommand implements Command {
 
     /**
      * Checks if due date is valid
+     *
      * @param dueDate Due date
      * @throws UnknownInputException if due date is not in valid format
      */

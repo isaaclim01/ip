@@ -2,6 +2,7 @@ package ip.ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 import ip.Squiddy;
 import ip.exceptions.FileCorruptedException;
@@ -30,10 +31,13 @@ public class Main extends Application {
 
             squiddy.setIsExit(false);
             squiddy.start();
-            fxmlLoader.<MainWindow>getController().setSquiddy(squiddy);  // inject the Squiddy instance
+
+            fxmlLoader.<MainWindow>getController().setSquiddy(squiddy);
             stage.show();
         } catch (FileNotFoundException | FileCorruptedException e) {
-            e.printStackTrace();
+            stage.show();
+            JOptionPane.showMessageDialog(null, "Your data file is corrupted! "
+                    + "\n Please fix manually to save your data");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -14,9 +14,10 @@ public class FindCommand implements Command {
     private static final int PREFIX_LENGTH = PREFIX.length();
 
     /**
-     * @inheritDoc
-     * @throws UnknownInputException if find has no keyword or list is empty
      * Finds tasks in the task list that has matching keyword
+     *
+     * @throws UnknownInputException if find has no keyword or list is empty
+     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks)
@@ -46,7 +47,7 @@ public class FindCommand implements Command {
             return ui.showNoResult(keyword);
         }
 
-        assert !results.isEmpty(): "Results is empty";
+        assert !results.isEmpty() : "Results is empty";
 
         return ui.showFindCommand(results);
 

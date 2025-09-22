@@ -12,9 +12,10 @@ public class ExitCommand implements Command {
     private static final String KEYWORD = "bye";
 
     /**
-     * @inheritDoc
-     * @throws UnknownInputException if input contains other words
      * Causes the application to exit
+     *
+     * @throws UnknownInputException if input contains other words
+     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws UnknownInputException {
@@ -27,6 +28,7 @@ public class ExitCommand implements Command {
 
     /**
      * Returns true to identify that it is an exit command
+     *
      * @return true
      */
     @Override

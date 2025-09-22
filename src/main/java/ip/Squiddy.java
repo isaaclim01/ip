@@ -40,10 +40,11 @@ public class Squiddy {
 
     /**
      * Starts up by loading storage
-     * @throws FileNotFoundException If task file cannot be found
+     *
+     * @throws FileNotFoundException  If task file cannot be found
      * @throws FileCorruptedException If task file is corrupted
      */
-    public void start() throws FileNotFoundException, FileCorruptedException{
+    public void start() throws FileNotFoundException, FileCorruptedException {
         storage.start();
         storage.loadFile(tasks);
     }
@@ -80,6 +81,7 @@ public class Squiddy {
 
     /**
      * Returns the welcome message
+     *
      * @return Welcome message
      */
     public String getWelcomeMsg() {

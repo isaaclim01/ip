@@ -10,16 +10,17 @@ import ip.ui.Ui;
 /**
  * Command to snooze a task
  */
-public class SnoozeCommand implements Command{
+public class SnoozeCommand implements Command {
     private static final String PREFIX = "snooze ";
     private static final int PREFIX_LENGTH = PREFIX.length();
 
     /**
-     * @inheritDoc
      * Snoozes a deadline or event task by changing the due date or start and end date
      * to a new one specified by user
+     *
      * @throws UnknownInputException if input is missing the task index, is a todo task
-     * or missing the correct format for deadline / event task
+     *                               or missing the correct format for deadline / event task
+     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) throws

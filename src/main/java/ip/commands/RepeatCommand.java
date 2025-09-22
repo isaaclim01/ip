@@ -10,8 +10,9 @@ import ip.ui.Ui;
 public class RepeatCommand implements Command {
 
     /**
-     * @inheritDoc
      * Calls UI to display message for unknown command
+     *
+     * @inheritDoc
      */
     @Override
     public String execute(String input, Ui ui, Storage storage, TaskList tasks) {

@@ -22,11 +22,22 @@ public class FileStorage implements Storage {
     private final File folder;
     private final File data;
 
+    /**
+     * Full Constructor
+     *
+     * @param folderPath Filepath for the folder 'data'
+     * @param dataPath   Filepath for the file 'Squiddy.txt'
+     */
     public FileStorage(String folderPath, String dataPath) {
         this.folder = new File(folderPath);
         this.data = new File(dataPath);
     }
 
+    /**
+     * Alternative constructor with only dataPath param
+     *
+     * @param dataPath Filepath for the file 'Squiddy.txt'
+     */
     public FileStorage(String dataPath) {
         this.data = new File(dataPath);
         this.folder = new File(dataPath.split("/")[0] + "/");
@@ -42,6 +53,7 @@ public class FileStorage implements Storage {
 
     /**
      * Checks if a folder exists
+     *
      * @return True if folder exists, false otherwise
      */
     private boolean checkFolderExists() {
@@ -50,6 +62,7 @@ public class FileStorage implements Storage {
 
     /**
      * Checks if a file exists
+     *
      * @return True if file exists, false otherwise
      */
     private boolean checkFileExists() {
@@ -63,11 +76,11 @@ public class FileStorage implements Storage {
         try {
             boolean isCreated = folder.mkdir();
 
-            assert isCreated: "Unable to create folder";
+            assert isCreated : "Unable to create folder";
 
         } catch (SecurityException e) {
             e.printStackTrace();
-            assert false: "Security exception";
+            assert false : "Security exception";
         }
     }
 
@@ -78,19 +91,20 @@ public class FileStorage implements Storage {
         try {
             boolean isCreated = data.createNewFile();
 
-            assert isCreated: "Unable to create file";
+            assert isCreated : "Unable to create file";
         } catch (IOException e) {
             e.printStackTrace();
-            assert false: "IO exception";
+            assert false : "IO exception";
         }
     }
 
     /**
      * Loads the data file into given TaskList
+     *
      * @param tasks TaskList to be input into
-     * @throws FileNotFoundException If data file does not exist
+     * @throws FileNotFoundException  If data file does not exist
      * @throws FileCorruptedException If formatting of data file is wrong
-     * Used Deepseek to shorten this method
+     *                                Used Deepseek to shorten this method
      */
     @Override
     public void loadFile(TaskList tasks) throws FileNotFoundException, FileCorruptedException {
@@ -112,7 +126,8 @@ public class FileStorage implements Storage {
 
     /**
      * Creates a task from String in data file
-     * @param line String in data file
+     *
+     * @param line       String in data file
      * @param lineNumber index of task
      * @return Task created
      * @throws FileCorruptedException if Task type is not valid
@@ -138,12 +153,13 @@ public class FileStorage implements Storage {
 
     /**
      * Sets the completion status of task based on String in data file
-     * @param line String in data file
-     * @param task Task created based on String
+     *
+     * @param line       String in data file
+     * @param task       Task created based on String
      * @param lineNumber Index of task
      * @throws FileCorruptedException if completion status is not valid
      */
-    private void setTaskCompletionStatus(String line, Task task, int lineNumber) throws FileCorruptedException{
+    private void setTaskCompletionStatus(String line, Task task, int lineNumber) throws FileCorruptedException {
         String[] splitCurr = line.split("/");
         if (splitCurr[1].trim().equals("1")) {
             task.setDone(true);
@@ -157,6 +173,7 @@ public class FileStorage implements Storage {
 
     /**
      * Appends task into data file
+     *
      * @param task Task to be stored
      * @throws FileCorruptedException If FileWriter is unable to write into file
      */
@@ -176,6 +193,7 @@ public class FileStorage implements Storage {
 
     /**
      * Rewrites entire data file according to TaskList
+     *
      * @param tasks TaskList to be stored
      * @throws FileCorruptedException If FileWriter is unable to write into file
      */

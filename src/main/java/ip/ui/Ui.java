@@ -1,6 +1,5 @@
 package ip.ui;
 
-import ip.Squiddy;
 import ip.tasks.Task;
 import ip.tasks.TaskList;
 
@@ -9,10 +8,12 @@ import ip.tasks.TaskList;
  */
 public class Ui {
 
-    public Ui() {}
+    public Ui() {
+    }
 
     /**
      * Shows welcome message
+     *
      * @return The welcome message
      */
     public String showWelcomeMsg() {
@@ -22,6 +23,7 @@ public class Ui {
 
     /**
      * Shows exit message
+     *
      * @return The exit message
      */
     public String showExitMsg() {
@@ -30,6 +32,7 @@ public class Ui {
 
     /**
      * Shows message for UnknownInputException
+     *
      * @param msg Error message
      * @return Full message with msg added
      */
@@ -39,6 +42,7 @@ public class Ui {
 
     /**
      * Shows message for FileNotFoundException
+     *
      * @param msg Error message
      * @return Full message with msg added
      */
@@ -48,6 +52,7 @@ public class Ui {
 
     /**
      * Shows message for FileCorruptedException
+     *
      * @param msg Error message
      * @return Full message with msg added
      */
@@ -57,6 +62,7 @@ public class Ui {
 
     /**
      * Shows message for other exceptions
+     *
      * @param msg Error message
      * @return Full message with msg added
      */
@@ -66,6 +72,7 @@ public class Ui {
 
     /**
      * Show task details
+     *
      * @param task Task to be displayed
      * @return String with task details
      */
@@ -76,6 +83,7 @@ public class Ui {
     /**
      * Shows message after adding a task into
      * TaskList
+     *
      * @param task Task added
      * @return String with full message
      */
@@ -86,6 +94,7 @@ public class Ui {
 
     /**
      * Shows message after deleting a task
+     *
      * @param task Task deleted
      * @param size Size of the TaskList after deletion
      * @return String with full message
@@ -100,7 +109,8 @@ public class Ui {
     /**
      * Shows a task details to be combined into a
      * list to be displayed
-     * @param task Current task
+     *
+     * @param task  Current task
      * @param index Index of task
      * @return String with details of task formatted
      */
@@ -111,6 +121,7 @@ public class Ui {
 
     /**
      * Shows the current list of tasks in TaskList
+     *
      * @param tasks TaskList to be displayed
      * @return List of all tasks in TaskList
      */
@@ -129,6 +140,7 @@ public class Ui {
 
     /**
      * Shows a message after marking task as done
+     *
      * @param task Task marked done
      * @return Full message with task details
      */
@@ -138,6 +150,7 @@ public class Ui {
 
     /**
      * Shows a message after marking task as not done
+     *
      * @param task Task marked not done
      * @return Full message with task details
      */
@@ -147,6 +160,7 @@ public class Ui {
 
     /**
      * Repeats user input when command is not valid
+     *
      * @param repeat User input
      * @return Message with user input
      */
@@ -156,6 +170,7 @@ public class Ui {
 
     /**
      * Shows the results of FindCommand
+     *
      * @param results TaskList of tasks that match the user's
      *                search
      * @return List of all the task that match the search
@@ -173,6 +188,7 @@ public class Ui {
 
     /**
      * Shows a message when there are no results for FindCommand
+     *
      * @param keyword User's search
      * @return Message asking the user to try again
      */
@@ -183,6 +199,7 @@ public class Ui {
 
     /**
      * Shows a message after task is snoozed
+     *
      * @param task Task snoozed
      * @return Message showing the task snoozed
      */
