@@ -27,9 +27,4 @@ public class StorageStub implements Storage {
     public void loadFile(TaskList tasks) throws FileNotFoundException, FileCorruptedException {
 
     }
-
-    @Override
-    public boolean remakeFile() {
-        return true;
-    }
 }
